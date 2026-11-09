@@ -1,6 +1,6 @@
 namespace Kepler7.Core.Patrones.Prototype;
 
-public interface IPrototipo
+public interface IPrototipo<T>
 {
-    TripulantePrototipo Clonar();
+    T Clonar();
 }

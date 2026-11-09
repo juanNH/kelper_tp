@@ -2,42 +2,46 @@ namespace Kepler7.Core.Patrones.Bridge;
 
 public abstract class Mensaje
 {
-    public ICifrado Cifrado { get; set; }
+    private readonly ICifrado cifrado;
 
     protected Mensaje(ICifrado cifrado)
     {
-        Cifrado = cifrado;
+        ArgumentNullException.ThrowIfNull(cifrado);
+        this.cifrado = cifrado;
     }
 
-    public abstract string Enviar(string texto);
+    public string Enviar(string texto)
+    {
+        ArgumentNullException.ThrowIfNull(texto);
+        return cifrado.Cifrar(Formatear(texto));
+    }
+
+    protected abstract string Formatear(string texto);
 }
 
-public class MensajeTexto : Mensaje
+public sealed class MensajeTexto : Mensaje
 {
-    public MensajeTexto(ICifrado cifrado) : base(cifrado) { }
-
-    public override string Enviar(string texto)
+    public MensajeTexto(ICifrado cifrado) : base(cifrado)
     {
-        return Cifrado.Cifrar("[TEXTO] " + texto);
     }
+
+    protected override string Formatear(string texto) => $"[TEXTO] {texto}";
 }
 
-public class MensajeAlerta : Mensaje
+public sealed class MensajeAlerta : Mensaje
 {
-    public MensajeAlerta(ICifrado cifrado) : base(cifrado) { }
-
-    public override string Enviar(string texto)
+    public MensajeAlerta(ICifrado cifrado) : base(cifrado)
     {
-        return Cifrado.Cifrar("[ALERTA] " + texto);
     }
+
+    protected override string Formatear(string texto) => $"[ALERTA] {texto}";
 }
 
-public class MensajeEmergencia : Mensaje
+public sealed class MensajeEmergencia : Mensaje
 {
-    public MensajeEmergencia(ICifrado cifrado) : base(cifrado) { }
-
-    public override string Enviar(string texto)
+    public MensajeEmergencia(ICifrado cifrado) : base(cifrado)
     {
-        return Cifrado.Cifrar("[EMERGENCIA] " + texto);
     }
+
+    protected override string Formatear(string texto) => $"[EMERGENCIA] {texto}";
 }

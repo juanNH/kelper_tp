@@ -1,14 +1,15 @@
+using Kepler7.Core.Patrones.Builder.Componentes;
+
 namespace Kepler7.Core.Patrones.Builder;
 
 public interface INaveBuilder
 {
-    INaveBuilder Reiniciar();
-    INaveBuilder PonerCasco(string casco);
-    INaveBuilder PonerMotor(string motor);
-    INaveBuilder PonerEscudo(string escudo);
-    INaveBuilder PonerArmas(string armas);
-    INaveBuilder PonerRadar(string radar);
-    INaveBuilder PonerTanqueCombustible(string tanque);
-    INaveBuilder PonerInteligenciaArtificial(string inteligencia);
-    Nave ConstruirNave();
+    void Reiniciar();
+    void PonerCasco(Casco casco);
+    void PonerMotor(Motor motor);
+    void PonerEscudo(Escudo escudo);
+    void PonerArmas(Armamento armas);
+    void PonerRadar(Radar radar);
+    void PonerTanqueCombustible(TanqueCombustible tanque);
+    void PonerInteligenciaArtificial(InteligenciaArtificial inteligenciaArtificial);
 }

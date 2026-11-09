@@ -1,55 +1,49 @@
+using Kepler7.Core.Patrones.Builder.Componentes;
+
 namespace Kepler7.Core.Patrones.Builder;
 
-public class NaveBuilder : INaveBuilder
+public sealed class NaveBuilder : INaveBuilder
 {
-    private Nave nave = new Nave();
+    private Nave nave = new();
 
-    public INaveBuilder Reiniciar()
+    public void Reiniciar()
     {
         nave = new Nave();
-        return this;
     }
 
-    public INaveBuilder PonerCasco(string casco)
+    public void PonerCasco(Casco casco)
     {
         nave.Casco = casco;
-        return this;
     }
 
-    public INaveBuilder PonerMotor(string motor)
+    public void PonerMotor(Motor motor)
     {
         nave.Motor = motor;
-        return this;
     }
 
-    public INaveBuilder PonerEscudo(string escudo)
+    public void PonerEscudo(Escudo escudo)
     {
         nave.Escudo = escudo;
-        return this;
     }
 
-    public INaveBuilder PonerArmas(string armas)
+    public void PonerArmas(Armamento armas)
     {
         nave.Armas = armas;
-        return this;
     }
 
-    public INaveBuilder PonerRadar(string radar)
+    public void PonerRadar(Radar radar)
     {
         nave.Radar = radar;
-        return this;
     }
 
-    public INaveBuilder PonerTanqueCombustible(string tanque)
+    public void PonerTanqueCombustible(TanqueCombustible tanque)
     {
         nave.TanqueCombustible = tanque;
-        return this;
     }
 
-    public INaveBuilder PonerInteligenciaArtificial(string inteligencia)
+    public void PonerInteligenciaArtificial(InteligenciaArtificial inteligenciaArtificial)
     {
-        nave.InteligenciaArtificial = inteligencia;
-        return this;
+        nave.InteligenciaArtificial = inteligenciaArtificial;
     }
 
     public Nave ConstruirNave()

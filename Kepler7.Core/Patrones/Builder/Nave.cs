@@ -1,23 +1,18 @@
+using Kepler7.Core.Patrones.Builder.Componentes;
+
 namespace Kepler7.Core.Patrones.Builder;
 
-public class Nave
+public sealed class Nave
 {
-    public string Casco { get; set; } = "-";
-    public string Motor { get; set; } = "-";
-    public string Escudo { get; set; } = "-";
-    public string Armas { get; set; } = "-";
-    public string Radar { get; set; } = "-";
-    public string TanqueCombustible { get; set; } = "-";
-    public string InteligenciaArtificial { get; set; } = "-";
-
-    public override string ToString()
+    internal Nave()
     {
-        return "Casco: " + Casco + Environment.NewLine +
-               "Motor: " + Motor + Environment.NewLine +
-               "Escudo: " + Escudo + Environment.NewLine +
-               "Armas: " + Armas + Environment.NewLine +
-               "Radar: " + Radar + Environment.NewLine +
-               "Tanque de combustible: " + TanqueCombustible + Environment.NewLine +
-               "Inteligencia artificial: " + InteligenciaArtificial;
     }
+
+    public Casco? Casco { get; internal set; }
+    public Motor? Motor { get; internal set; }
+    public Escudo? Escudo { get; internal set; }
+    public Armamento? Armas { get; internal set; }
+    public Radar? Radar { get; internal set; }
+    public TanqueCombustible? TanqueCombustible { get; internal set; }
+    public InteligenciaArtificial? InteligenciaArtificial { get; internal set; }
 }

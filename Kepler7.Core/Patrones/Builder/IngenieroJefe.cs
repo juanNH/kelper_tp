@@ -1,38 +1,37 @@
+using Kepler7.Core.Patrones.Builder.Componentes;
+
 namespace Kepler7.Core.Patrones.Builder;
 
-public class IngenieroJefe
+public sealed class IngenieroJefe
 {
-    public Nave RecetaExploradora(INaveBuilder builder)
+    public void RecetaExploradora(INaveBuilder builder)
     {
-        return builder.Reiniciar()
-            .PonerCasco("Ligero")
-            .PonerMotor("Largo alcance")
-            .PonerEscudo("Básico")
-            .PonerRadar("Avanzado")
-            .PonerTanqueCombustible("Grande")
-            .ConstruirNave();
+        builder.Reiniciar();
+        builder.PonerCasco(new CascoLigero());
+        builder.PonerMotor(new MotorDeLargoAlcance());
+        builder.PonerEscudo(new EscudoBasico());
+        builder.PonerRadar(new RadarAvanzado());
+        builder.PonerTanqueCombustible(new TanqueCombustibleGrande());
     }
 
-    public Nave RecetaCombate(INaveBuilder builder)
+    public void RecetaCombate(INaveBuilder builder)
     {
-        return builder.Reiniciar()
-            .PonerCasco("Reforzado")
-            .PonerMotor("Rápido")
-            .PonerEscudo("Potente")
-            .PonerArmas("Láser")
-            .PonerRadar("De rastreo")
-            .PonerInteligenciaArtificial("Combate")
-            .ConstruirNave();
+        builder.Reiniciar();
+        builder.PonerCasco(new CascoReforzado());
+        builder.PonerMotor(new MotorRapido());
+        builder.PonerEscudo(new EscudoPotente());
+        builder.PonerArmas(new ArmamentoLaser());
+        builder.PonerRadar(new RadarDeRastreo());
+        builder.PonerInteligenciaArtificial(new InteligenciaArtificialDeCombate());
     }
 
-    public Nave RecetaCarga(INaveBuilder builder)
+    public void RecetaCarga(INaveBuilder builder)
     {
-        return builder.Reiniciar()
-            .PonerCasco("De carga")
-            .PonerMotor("Largo alcance")
-            .PonerEscudo("Básico")
-            .PonerRadar("Básico")
-            .PonerTanqueCombustible("Grande")
-            .ConstruirNave();
+        builder.Reiniciar();
+        builder.PonerCasco(new CascoDeCarga());
+        builder.PonerMotor(new MotorDeLargoAlcance());
+        builder.PonerEscudo(new EscudoBasico());
+        builder.PonerRadar(new RadarBasico());
+        builder.PonerTanqueCombustible(new TanqueCombustibleGrande());
     }
 }
