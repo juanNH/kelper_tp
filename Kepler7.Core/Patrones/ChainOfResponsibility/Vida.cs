@@ -21,6 +21,14 @@ public sealed class Vida : ManejadorDanioBase
         Puntos = Math.Min(PuntosMaximos, Puntos + puntos);
     }
 
+    public void Reducir(int puntos)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegative(puntos);
+        Puntos = Math.Max(0, Puntos - puntos);
+    }
+
+    public void Restar(int puntos) => Reducir(puntos);
+
     protected override (int Absorbido, string Detalle) Absorber(Danio danio)
     {
         Puntos = Math.Max(0, Puntos - danio.Restante);

@@ -3,7 +3,7 @@ using Kepler7.Core.Patrones.ChainOfResponsibility;
 namespace Kepler7.Core.Patrones.State;
 
 // Contexto del patrón: guarda el estado actual y le delega cada acción.
-public sealed class Personaje
+public sealed partial class Personaje
 {
     public Personaje(string nombre, int ataque, int movimiento, CadenaDefensas defensas)
     {
