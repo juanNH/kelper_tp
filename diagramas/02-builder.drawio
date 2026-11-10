@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="Electron" type="device" version="32.6.10">
+  <diagram id="kepler-builder" name="Builder">
+    <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2890" pageHeight="1380" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="director" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="208" y="68" width="690" height="147" as="geometry" />
+        </mxCell>
+        <mxCell id="director-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;IngenieroJefe&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="director">
+          <mxGeometry x="1" y="1" width="688" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="director-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="director">
+          <mxGeometry x="0" y="43" width="690" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="director-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ ConstruirNave(receta: TipoRecetaNave, builder: NaveBuilder): Nave&lt;br&gt;+ RecetaExploradora(builder: INaveBuilder)&lt;br&gt;+ RecetaCombate(builder: INaveBuilder)&lt;br&gt;+ RecetaCarga(builder: INaveBuilder)&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="director">
+          <mxGeometry x="14" y="43" width="662" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="interfaz" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="48" width="745" height="243" as="geometry" />
+        </mxCell>
+        <mxCell id="interfaz-nombre" value="&lt;div style=&quot;font-size:12px;color:#53627A;&quot;&gt;«interface»&lt;/div&gt;&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;INaveBuilder&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="interfaz">
+          <mxGeometry x="1" y="1" width="743" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="interfaz-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="interfaz">
+          <mxGeometry x="0" y="52" width="745" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="interfaz-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Reiniciar()&lt;br&gt;+ PonerCasco(casco: Casco)&lt;br&gt;+ PonerMotor(motor: Motor)&lt;br&gt;+ PonerEscudo(escudo: Escudo)&lt;br&gt;+ PonerArmas(armas: Armamento)&lt;br&gt;+ PonerRadar(radar: Radar)&lt;br&gt;+ PonerTanqueCombustible(tanque: TanqueCombustible)&lt;br&gt;+ PonerInteligenciaArtificial(inteligenciaArtificial: InteligenciaArtificial)&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="interfaz">
+          <mxGeometry x="14" y="52" width="717" height="191" as="geometry" />
+        </mxCell>
+        <mxCell id="constructor" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="1972" y="48" width="750" height="292" as="geometry" />
+        </mxCell>
+        <mxCell id="constructor-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;NaveBuilder&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="constructor">
+          <mxGeometry x="1" y="1" width="748" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="constructor-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="constructor">
+          <mxGeometry x="0" y="43" width="750" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="constructor-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;- nave: Nave&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="constructor">
+          <mxGeometry x="14" y="43" width="722" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="constructor-separador-1" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="constructor">
+          <mxGeometry x="0" y="80" width="750" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="constructor-miembros-1" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Reiniciar()&lt;br&gt;+ PonerCasco(casco: Casco)&lt;br&gt;+ PonerMotor(motor: Motor)&lt;br&gt;+ PonerEscudo(escudo: Escudo)&lt;br&gt;+ PonerArmas(armas: Armamento)&lt;br&gt;+ PonerRadar(radar: Radar)&lt;br&gt;+ PonerTanqueCombustible(tanque: TanqueCombustible)&lt;br&gt;+ PonerInteligenciaArtificial(inteligenciaArtificial: InteligenciaArtificial)&lt;br&gt;+ ConstruirNave(): Nave&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="constructor">
+          <mxGeometry x="14" y="80" width="722" height="212" as="geometry" />
+        </mxCell>
+        <mxCell id="nave" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="418" width="730" height="281" as="geometry" />
+        </mxCell>
+        <mxCell id="nave-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;Nave&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="nave">
+          <mxGeometry x="1" y="1" width="728" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="nave-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="nave">
+          <mxGeometry x="0" y="43" width="730" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nave-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ TipoReceta: TipoRecetaNave&lt;br&gt;+ Casco: Casco&lt;br&gt;+ Motor: Motor&lt;br&gt;+ Escudo: Escudo&lt;br&gt;+ Armas: Armamento&lt;br&gt;+ Radar: Radar&lt;br&gt;+ TanqueCombustible: TanqueCombustible&lt;br&gt;+ InteligenciaArtificial: InteligenciaArtificial&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="nave">
+          <mxGeometry x="14" y="43" width="702" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="nave-separador-1" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="nave">
+          <mxGeometry x="0" y="243" width="730" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nave-miembros-1" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;~ Nave()&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="nave">
+          <mxGeometry x="14" y="243" width="702" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="receta" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="493" y="441" width="353" height="133" as="geometry" />
+        </mxCell>
+        <mxCell id="receta-nombre" value="&lt;div style=&quot;font-size:12px;color:#53627A;&quot;&gt;«enumeration»&lt;/div&gt;&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;TipoRecetaNave&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="receta">
+          <mxGeometry x="1" y="1" width="351" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="receta-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="receta">
+          <mxGeometry x="0" y="52" width="353" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="receta-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;Exploradora&lt;br&gt;Combate&lt;br&gt;Carga&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="receta">
+          <mxGeometry x="14" y="52" width="325" height="81" as="geometry" />
+        </mxCell>
+        <mxCell id="Casco" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="59" y="919" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="Casco-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;&lt;i&gt;Casco&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="Casco">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="Casco-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="Casco">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Casco-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;i&gt;+ Nombre: String {readOnly}&lt;/i&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="Casco">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoLigero" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="89" y="1052" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoLigero-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;CascoLigero&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="CascoLigero">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoLigero-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="CascoLigero">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoLigero-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="CascoLigero">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoReforzado" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="89" y="1156" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoReforzado-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;CascoReforzado&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="CascoReforzado">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoReforzado-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="CascoReforzado">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoReforzado-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="CascoReforzado">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoDeCarga" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="89" y="1260" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoDeCarga-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;CascoDeCarga&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="CascoDeCarga">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoDeCarga-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="CascoDeCarga">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CascoDeCarga-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="CascoDeCarga">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="Motor" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="459" y="919" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="Motor-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;&lt;i&gt;Motor&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="Motor">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="Motor-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="Motor">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Motor-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;i&gt;+ Nombre: String {readOnly}&lt;/i&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="Motor">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="MotorDeLargoAlcance" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="489" y="1052" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="MotorDeLargoAlcance-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;MotorDeLargoAlcance&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="MotorDeLargoAlcance">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="MotorDeLargoAlcance-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="MotorDeLargoAlcance">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MotorDeLargoAlcance-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="MotorDeLargoAlcance">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="MotorRapido" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="489" y="1156" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="MotorRapido-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;MotorRapido&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="MotorRapido">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="MotorRapido-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="MotorRapido">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MotorRapido-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="MotorRapido">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="Escudo" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="859" y="919" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="Escudo-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;&lt;i&gt;Escudo&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="Escudo">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="Escudo-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="Escudo">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Escudo-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;i&gt;+ Nombre: String {readOnly}&lt;/i&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="Escudo">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="EscudoBasico" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="889" y="1052" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="EscudoBasico-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;EscudoBasico&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="EscudoBasico">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="EscudoBasico-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="EscudoBasico">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EscudoBasico-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="EscudoBasico">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="EscudoPotente" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="889" y="1156" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="EscudoPotente-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;EscudoPotente&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="EscudoPotente">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="EscudoPotente-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="EscudoPotente">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EscudoPotente-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="EscudoPotente">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="Armamento" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="1259" y="919" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="Armamento-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;&lt;i&gt;Armamento&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="Armamento">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="Armamento-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="Armamento">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Armamento-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;i&gt;+ Nombre: String {readOnly}&lt;/i&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="Armamento">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="ArmamentoLaser" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="1289" y="1052" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="ArmamentoLaser-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;ArmamentoLaser&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="ArmamentoLaser">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="ArmamentoLaser-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="ArmamentoLaser">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ArmamentoLaser-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="ArmamentoLaser">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="Radar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="1659" y="919" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="Radar-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;&lt;i&gt;Radar&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="Radar">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="Radar-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="Radar">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Radar-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;i&gt;+ Nombre: String {readOnly}&lt;/i&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="Radar">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarAvanzado" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="1689" y="1052" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarAvanzado-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;RadarAvanzado&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="RadarAvanzado">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarAvanzado-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="RadarAvanzado">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarAvanzado-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="RadarAvanzado">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarDeRastreo" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="1689" y="1156" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarDeRastreo-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;RadarDeRastreo&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="RadarDeRastreo">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarDeRastreo-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="RadarDeRastreo">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarDeRastreo-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="RadarDeRastreo">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarBasico" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="1689" y="1260" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarBasico-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;RadarBasico&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="RadarBasico">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarBasico-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="RadarBasico">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RadarBasico-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="RadarBasico">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="TanqueCombustible" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="2059" y="919" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="TanqueCombustible-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;&lt;i&gt;TanqueCombustible&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="TanqueCombustible">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="TanqueCombustible-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="TanqueCombustible">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TanqueCombustible-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;i&gt;+ Nombre: String {readOnly}&lt;/i&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="TanqueCombustible">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="TanqueCombustibleGrande" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="2089" y="1052" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="TanqueCombustibleGrande-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;TanqueCombustibleGrande&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="TanqueCombustibleGrande">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="TanqueCombustibleGrande-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="TanqueCombustibleGrande">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TanqueCombustibleGrande-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="TanqueCombustibleGrande">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="InteligenciaArtificial" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="2459" y="919" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="InteligenciaArtificial-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;&lt;i&gt;InteligenciaArtificial&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="InteligenciaArtificial">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="InteligenciaArtificial-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="InteligenciaArtificial">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="InteligenciaArtificial-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;i&gt;+ Nombre: String {readOnly}&lt;/i&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="InteligenciaArtificial">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="InteligenciaArtificialDeCombate" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="2489" y="1052" width="342" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="InteligenciaArtificialDeCombate-nombre" value="&lt;div style=&quot;font-size:18px;font-weight:bold;color:#19273B;&quot;&gt;InteligenciaArtificialDeCombate&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="InteligenciaArtificialDeCombate">
+          <mxGeometry x="1" y="1" width="340" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="InteligenciaArtificialDeCombate-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="InteligenciaArtificialDeCombate">
+          <mxGeometry x="0" y="43" width="342" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="InteligenciaArtificialDeCombate-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:12px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="InteligenciaArtificialDeCombate">
+          <mxGeometry x="14" y="43" width="314" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="director-interfaz" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=1;exitY=0.54421768707483;exitDx=0;exitDy=0;entryX=0;entryY=0.411522633744856;entryDx=0;entryDy=0;" edge="1" parent="1" source="director" target="interfaz">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="director-constructor" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0.51;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="director" target="constructor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="22" />
+              <mxPoint x="2347" y="22" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="realiza" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;dashed=1;dashPattern=5 4;exitX=0;exitY=0.3424657534246575;exitDx=0;exitDy=0;entryX=1;entryY=0.411522633744856;entryDx=0;entryDy=0;" edge="1" parent="1" source="constructor" target="interfaz">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="nave-en-armado" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;startArrow=diamond;startFill=1;startSize=14;endArrow=none;exitX=0.324;exitY=1;exitDx=0;exitDy=0;entryX=0.8082191780821918;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="constructor" target="nave">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2215" y="376" />
+              <mxPoint x="1670" y="376" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nave-en-armado-origen" value="0..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="nave-en-armado">
+          <mxGeometry x="-0.98" relative="1" as="geometry">
+            <mxPoint x="23" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nave-en-armado-destino" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="nave-en-armado">
+          <mxGeometry x="0.98" relative="1" as="geometry">
+            <mxPoint x="14" y="-6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nave-receta" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0;exitY=0.29537366548042704;exitDx=0;exitDy=0;entryX=1;entryY=0.45112781954887216;entryDx=0;entryDy=0;" edge="1" parent="1" source="nave" target="receta">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Casco" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;startArrow=diamond;startFill=0;startSize=14;endArrow=none;exitX=0.0410958904109589;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="nave" target="Casco">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1110" y="738" />
+              <mxPoint x="230" y="738" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Casco-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-Casco">
+          <mxGeometry x="-0.985" relative="1" as="geometry">
+            <mxPoint x="20" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Casco-destino" value="0..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-Casco">
+          <mxGeometry x="0.985" relative="1" as="geometry">
+            <mxPoint x="23" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-CascoLigero" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="CascoLigero" target="Casco">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="43" y="1073.25" />
+              <mxPoint x="43" y="1023" />
+              <mxPoint x="230" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-CascoReforzado" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="CascoReforzado" target="Casco">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="43" y="1177.25" />
+              <mxPoint x="43" y="1023" />
+              <mxPoint x="230" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-CascoDeCarga" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="CascoDeCarga" target="Casco">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="43" y="1281.25" />
+              <mxPoint x="43" y="1023" />
+              <mxPoint x="230" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Motor" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;startArrow=diamond;startFill=0;startSize=14;endArrow=none;exitX=0.1780821917808219;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="nave" target="Motor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1210" y="776" />
+              <mxPoint x="630" y="776" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Motor-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-Motor">
+          <mxGeometry x="-0.985" relative="1" as="geometry">
+            <mxPoint x="20" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Motor-destino" value="0..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-Motor">
+          <mxGeometry x="0.985" relative="1" as="geometry">
+            <mxPoint x="23" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-MotorDeLargoAlcance" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="MotorDeLargoAlcance" target="Motor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="443" y="1073.25" />
+              <mxPoint x="443" y="1023" />
+              <mxPoint x="630" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-MotorRapido" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="MotorRapido" target="Motor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="443" y="1177.25" />
+              <mxPoint x="443" y="1023" />
+              <mxPoint x="630" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Escudo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;startArrow=diamond;startFill=0;startSize=14;endArrow=none;exitX=0.3150684931506849;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="nave" target="Escudo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1310" y="814" />
+              <mxPoint x="1030" y="814" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Escudo-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-Escudo">
+          <mxGeometry x="-0.985" relative="1" as="geometry">
+            <mxPoint x="20" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Escudo-destino" value="0..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-Escudo">
+          <mxGeometry x="0.985" relative="1" as="geometry">
+            <mxPoint x="23" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-EscudoBasico" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="EscudoBasico" target="Escudo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="843" y="1073.25" />
+              <mxPoint x="843" y="1023" />
+              <mxPoint x="1030" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-EscudoPotente" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="EscudoPotente" target="Escudo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="843" y="1177.25" />
+              <mxPoint x="843" y="1023" />
+              <mxPoint x="1030" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Armamento" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;startArrow=diamond;startFill=0;startSize=14;endArrow=none;exitX=0.4794520547945205;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="nave" target="Armamento">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Armamento-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-Armamento">
+          <mxGeometry x="-0.985" relative="1" as="geometry">
+            <mxPoint x="20" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Armamento-destino" value="0..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-Armamento">
+          <mxGeometry x="0.985" relative="1" as="geometry">
+            <mxPoint x="23" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-ArmamentoLaser" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="ArmamentoLaser" target="Armamento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1243" y="1073.25" />
+              <mxPoint x="1243" y="1023" />
+              <mxPoint x="1430" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Radar" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;startArrow=diamond;startFill=0;startSize=14;endArrow=none;exitX=0.684931506849315;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="nave" target="Radar">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1580" y="814" />
+              <mxPoint x="1830" y="814" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Radar-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-Radar">
+          <mxGeometry x="-0.985" relative="1" as="geometry">
+            <mxPoint x="20" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-Radar-destino" value="0..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-Radar">
+          <mxGeometry x="0.985" relative="1" as="geometry">
+            <mxPoint x="23" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-RadarAvanzado" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="RadarAvanzado" target="Radar">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1643" y="1073.25" />
+              <mxPoint x="1643" y="1023" />
+              <mxPoint x="1830" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-RadarDeRastreo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="RadarDeRastreo" target="Radar">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1643" y="1177.25" />
+              <mxPoint x="1643" y="1023" />
+              <mxPoint x="1830" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-RadarBasico" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="RadarBasico" target="Radar">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1643" y="1281.25" />
+              <mxPoint x="1643" y="1023" />
+              <mxPoint x="1830" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-TanqueCombustible" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;startArrow=diamond;startFill=0;startSize=14;endArrow=none;exitX=0.821917808219178;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="nave" target="TanqueCombustible">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1680" y="776" />
+              <mxPoint x="2230" y="776" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-TanqueCombustible-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-TanqueCombustible">
+          <mxGeometry x="-0.985" relative="1" as="geometry">
+            <mxPoint x="20" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-TanqueCombustible-destino" value="0..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-TanqueCombustible">
+          <mxGeometry x="0.985" relative="1" as="geometry">
+            <mxPoint x="23" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-TanqueCombustibleGrande" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="TanqueCombustibleGrande" target="TanqueCombustible">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2043" y="1073.25" />
+              <mxPoint x="2043" y="1023" />
+              <mxPoint x="2230" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-InteligenciaArtificial" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;startArrow=diamond;startFill=0;startSize=14;endArrow=none;exitX=0.958904109589041;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="nave" target="InteligenciaArtificial">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1780" y="738" />
+              <mxPoint x="2630" y="738" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-InteligenciaArtificial-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-InteligenciaArtificial">
+          <mxGeometry x="-0.985" relative="1" as="geometry">
+            <mxPoint x="20" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="parte-InteligenciaArtificial-destino" value="0..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="parte-InteligenciaArtificial">
+          <mxGeometry x="0.985" relative="1" as="geometry">
+            <mxPoint x="23" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hereda-InteligenciaArtificialDeCombate" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="InteligenciaArtificialDeCombate" target="InteligenciaArtificial">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2443" y="1073.25" />
+              <mxPoint x="2443" y="1023" />
+              <mxPoint x="2630" y="1023" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
