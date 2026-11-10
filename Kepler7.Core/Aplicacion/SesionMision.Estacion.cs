@@ -25,6 +25,7 @@ public sealed partial class SesionMision
         IReadOnlyList<string> secuencia = controlCentral.EntrarEnEmergencia(enviarAviso: false);
         emergenciaActivada = true;
         RegistrarOperacionEstacion(secuencia);
+        progreso.RegistrarLogro(PatronKepler.Facade);
         return new(true, "Emergencia activada en Kepler-7.");
     }
 
@@ -38,6 +39,7 @@ public sealed partial class SesionMision
         IReadOnlyList<string> secuencia = controlCentral.ApagarEstacion(enviarDespedida: false);
         estacionApagada = true;
         RegistrarOperacionEstacion(secuencia);
+        progreso.RegistrarLogro(PatronKepler.Facade);
         return new(true, "Estación apagada. El escuadrón sigue en misión.");
     }
 

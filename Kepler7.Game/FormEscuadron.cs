@@ -45,7 +45,8 @@ internal sealed class FormEscuadron : FormPasoPreparacion
         contenido.Controls.Add(columnas, 0, 0);
 
         TableLayoutPanel catalogo = CrearPanel(new Padding(0, 0, 12, 0));
-        catalogo.RowCount = 5;
+        catalogo.RowCount = 6;
+        catalogo.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         catalogo.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         catalogo.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         catalogo.RowStyles.Add(new RowStyle(SizeType.AutoSize));
@@ -73,6 +74,15 @@ internal sealed class FormEscuadron : FormPasoPreparacion
         catalogo.Controls.Add(filtro);
         cantidad = Etiqueta("", Codigo, Secundario, 6);
         catalogo.Controls.Add(cantidad);
+
+        ResumenFlyweight flyweight = Preparacion.ConsultarFlyweight();
+        Label comparacion = Etiqueta(
+            $"Flyweight en los {flyweight.Tripulantes:N0} tripulantes del registro{Environment.NewLine}"
+            + $"{flyweight.InstanciasCompartidas:N0} instancias de especie compartidas{Environment.NewLine}"
+            + $"{flyweight.InstanciasSinCompartir:N0} instancias sin compartir (simulación)",
+            FuenteRegistro, Secundario, 8);
+        comparacion.Name = "lblComparacionFlyweight";
+        catalogo.Controls.Add(comparacion);
 
         registro = CrearRegistro();
         catalogo.Controls.Add(registro);

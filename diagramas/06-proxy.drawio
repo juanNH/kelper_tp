@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="Electron" type="device" version="32.6.10">
+  <diagram id="kepler-proxy" name="Proxy">
+    <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2110" pageHeight="960" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="boveda" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="625" y="52" width="430" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="boveda-nombre" value="&lt;div style=&quot;font-size:12px;color:#53627A;&quot;&gt;«interface»&lt;/div&gt;&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;IBoveda&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="boveda">
+          <mxGeometry x="1" y="1" width="428" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="boveda-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="boveda">
+          <mxGeometry x="0" y="52" width="430" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="boveda-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ LeerArchivo(id: String): String&lt;br&gt;+ EscribirArchivo(id: String, contenido: String)&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="boveda">
+          <mxGeometry x="14" y="52" width="402" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="boveda-datos" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="52" width="480" height="163" as="geometry" />
+        </mxCell>
+        <mxCell id="boveda-datos-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;BovedaDatos&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="boveda-datos">
+          <mxGeometry x="1" y="1" width="478" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="boveda-datos-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="boveda-datos">
+          <mxGeometry x="0" y="43" width="480" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="boveda-datos-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;- archivos: Dictionary&amp;lt;String, String&amp;gt; {readOnly}&lt;br&gt;+ IdsArchivos: IReadOnlyCollection&amp;lt;String&amp;gt; {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="boveda-datos">
+          <mxGeometry x="14" y="43" width="452" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="boveda-datos-separador-1" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="boveda-datos">
+          <mxGeometry x="0" y="103" width="480" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="boveda-datos-miembros-1" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ LeerArchivo(id: String): String&lt;br&gt;+ EscribirArchivo(id: String, contenido: String)&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="boveda-datos">
+          <mxGeometry x="14" y="103" width="452" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="500" y="295" width="785" height="247" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;ProxyBoveda&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="proxy">
+          <mxGeometry x="1" y="1" width="783" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="proxy">
+          <mxGeometry x="0" y="43" width="785" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;- bovedaReal: IBoveda {readOnly}&lt;br&gt;- usuario: Usuario {readOnly}&lt;br&gt;- registro: RegistroIntentosDenegados {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="proxy">
+          <mxGeometry x="14" y="43" width="757" height="81" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy-separador-1" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="proxy">
+          <mxGeometry x="0" y="124" width="785" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy-miembros-1" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ ProxyBoveda(bovedaReal: IBoveda, usuario: Usuario, registro: RegistroIntentosDenegados)&lt;br&gt;+ LeerArchivo(id: String): String&lt;br&gt;+ EscribirArchivo(id: String, contenido: String)&lt;br&gt;&lt;u&gt;+ RolAutorizado(rol: RolUsuario): Boolean&lt;/u&gt;&lt;br&gt;- VerificarAcceso(operacion: OperacionBoveda, id: String)&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="proxy">
+          <mxGeometry x="14" y="124" width="757" height="123" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="55" y="315" width="360" height="142" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;Usuario&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="usuario">
+          <mxGeometry x="1" y="1" width="358" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="usuario">
+          <mxGeometry x="0" y="43" width="360" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;br&gt;+ Rol: RolUsuario {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="usuario">
+          <mxGeometry x="14" y="43" width="332" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario-separador-1" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="usuario">
+          <mxGeometry x="0" y="103" width="360" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario-miembros-1" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Usuario(Nombre: String, Rol: RolUsuario)&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="usuario">
+          <mxGeometry x="14" y="103" width="332" height="39" as="geometry" />
+        </mxCell>
+        <mxCell id="registro" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="1425" y="295" width="625" height="289" as="geometry" />
+        </mxCell>
+        <mxCell id="registro-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;RegistroIntentosDenegados&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="registro">
+          <mxGeometry x="1" y="1" width="623" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="registro-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="registro">
+          <mxGeometry x="0" y="43" width="625" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="registro-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;u&gt;- bloqueo: Object {readOnly}&lt;/u&gt;&lt;br&gt;- intentos: List&amp;lt;IntentoDenegado&amp;gt; {readOnly}&lt;br&gt;- rutaArchivo: String? {readOnly}&lt;br&gt;+ CantidadIntentos: Integer {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="registro">
+          <mxGeometry x="14" y="43" width="597" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="registro-separador-1" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="registro">
+          <mxGeometry x="0" y="145" width="625" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="registro-miembros-1" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ RegistroIntentosDenegados()&lt;br&gt;+ RegistroIntentosDenegados(rutaArchivo: String)&lt;br&gt;+ Registrar(intento: IntentoDenegado)&lt;br&gt;+ ObtenerIntentos(): IReadOnlyList&amp;lt;IntentoDenegado&amp;gt;&lt;br&gt;&lt;u&gt;- LeerArchivo(ruta: String): List&amp;lt;IntentoDenegado&amp;gt;&lt;/u&gt;&lt;br&gt;&lt;u&gt;- GuardarArchivo(ruta: String, guardados: List&amp;lt;IntentoDenegado&amp;gt;)&lt;/u&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="registro">
+          <mxGeometry x="14" y="145" width="597" height="144" as="geometry" />
+        </mxCell>
+        <mxCell id="rol" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="65" y="645" width="280" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="rol-nombre" value="&lt;div style=&quot;font-size:12px;color:#53627A;&quot;&gt;«enumeration»&lt;/div&gt;&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;RolUsuario&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="rol">
+          <mxGeometry x="1" y="1" width="278" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="rol-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="rol">
+          <mxGeometry x="0" y="52" width="280" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rol-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;Recluta&lt;br&gt;Tecnico&lt;br&gt;Ingeniero&lt;br&gt;OficialSeguridad&lt;br&gt;Capitan&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="rol">
+          <mxGeometry x="14" y="52" width="252" height="123" as="geometry" />
+        </mxCell>
+        <mxCell id="operacion" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="575" y="645" width="250" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="operacion-nombre" value="&lt;div style=&quot;font-size:12px;color:#53627A;&quot;&gt;«enumeration»&lt;/div&gt;&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;OperacionBoveda&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="operacion">
+          <mxGeometry x="1" y="1" width="248" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="operacion-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="operacion">
+          <mxGeometry x="0" y="52" width="250" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="operacion-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;Lectura&lt;br&gt;Escritura&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="operacion">
+          <mxGeometry x="14" y="52" width="222" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="intento" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="935" y="645" width="440" height="247" as="geometry" />
+        </mxCell>
+        <mxCell id="intento-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;IntentoDenegado&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="intento">
+          <mxGeometry x="1" y="1" width="438" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="intento-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="intento">
+          <mxGeometry x="0" y="43" width="440" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="intento-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Fecha: DateTime {readOnly}&lt;br&gt;+ Usuario: String {readOnly}&lt;br&gt;+ Rol: RolUsuario {readOnly}&lt;br&gt;+ Operacion: OperacionBoveda {readOnly}&lt;br&gt;+ IdArchivo: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="intento">
+          <mxGeometry x="14" y="43" width="412" height="123" as="geometry" />
+        </mxCell>
+        <mxCell id="intento-separador-1" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="intento">
+          <mxGeometry x="0" y="166" width="440" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="intento-miembros-1" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ IntentoDenegado(Fecha: DateTime, Usuario: String,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Rol: RolUsuario, Operacion: OperacionBoveda,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;IdArchivo: String)&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="intento">
+          <mxGeometry x="14" y="166" width="412" height="81" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy-realiza-boveda" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=14;dashed=1;dashPattern=5 4;exitX=0.29936305732484075;exitY=0;exitDx=0;exitDy=0;entryX=0.2558139534883721;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="proxy" target="boveda">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="boveda-datos-realiza-boveda" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=14;dashed=1;dashPattern=5 4;exitX=0;exitY=0.34355828220858897;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="boveda-datos" target="boveda">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy-boveda-real" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;startArrow=diamond;startFill=0;startSize=14;endArrow=none;exitX=0.5668789808917197;exitY=0;exitDx=0;exitDy=0;entryX=0.7441860465116279;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="proxy" target="boveda">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy-boveda-real-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="proxy-boveda-real">
+          <mxGeometry x="-0.98" relative="1" as="geometry">
+            <mxPoint x="25" y="-14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="proxy-boveda-real-destino" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="proxy-boveda-real">
+          <mxGeometry x="0.98" relative="1" as="geometry">
+            <mxPoint x="16" y="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="proxy-usuario" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;endSize=8;exitX=0;exitY=0.27530364372469635;exitDx=0;exitDy=0;entryX=1;entryY=0.3380281690140845;entryDx=0;entryDy=0;" edge="1" parent="1" source="proxy" target="usuario">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy-usuario-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="proxy-usuario">
+          <mxGeometry x="-0.98" relative="1" as="geometry">
+            <mxPoint x="-23" y="-13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="proxy-usuario-destino" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="proxy-usuario">
+          <mxGeometry x="0.98" relative="1" as="geometry">
+            <mxPoint x="14" y="-13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="proxy-registro" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;endSize=8;exitX=1;exitY=0.27530364372469635;exitDx=0;exitDy=0;entryX=0;entryY=0.23529411764705882;entryDx=0;entryDy=0;" edge="1" parent="1" source="proxy" target="registro">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy-registro-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="proxy-registro">
+          <mxGeometry x="-0.98" relative="1" as="geometry">
+            <mxPoint x="23" y="-13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="proxy-registro-destino" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="proxy-registro">
+          <mxGeometry x="0.98" relative="1" as="geometry">
+            <mxPoint x="-14" y="-13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="registro-intentos" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;startArrow=diamond;startFill=0;startSize=14;endArrow=none;exitX=0.24;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.44534412955465585;entryDx=0;entryDy=0;" edge="1" parent="1" source="registro" target="intento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1575" y="755" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="registro-intentos-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="registro-intentos">
+          <mxGeometry x="-0.98" relative="1" as="geometry">
+            <mxPoint x="26" y="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="registro-intentos-destino" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="registro-intentos">
+          <mxGeometry x="0.98" relative="1" as="geometry">
+            <mxPoint x="25" y="-13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="proxy-crea-intento" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0.7643312101910829;exitY=1;exitDx=0;exitDy=0;entryX=0.375;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="proxy" target="intento">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy-autoriza-rol" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0.044585987261146494;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.21142857142857144;entryDx=0;entryDy=0;" edge="1" parent="1" source="proxy" target="rol">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="535" y="682" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="proxy-usa-operacion" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0.25477707006369427;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="proxy" target="operacion">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario-rol" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0.4166666666666667;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="usuario" target="rol">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="intento-operacion" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0;exitY=0.24696356275303644;exitDx=0;exitDy=0;entryX=1;entryY=0.5446428571428571;entryDx=0;entryDy=0;" edge="1" parent="1" source="intento" target="operacion">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="intento-rol" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0;exitY=0.5870445344129555;exitDx=0;exitDy=0;entryX=1;entryY=0.8285714285714286;entryDx=0;entryDy=0;" edge="1" parent="1" source="intento" target="rol">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

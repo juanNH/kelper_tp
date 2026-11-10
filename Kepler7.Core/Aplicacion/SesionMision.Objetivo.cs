@@ -32,6 +32,7 @@ public sealed partial class SesionMision
         }
 
         string senal = protocoloMision.EnviarSenal();
+        progreso.RegistrarLogro(PatronKepler.Bridge);
         string cifrado = ProtocoloComunicaciones.NombreCifrado(protocoloMision.Cifrado);
         bitacora.Add($"Señal enviada desde la antena. {protocoloMision.Tipo} · {cifrado}.{Environment.NewLine}{senal}");
         string mensaje = $"Victoria. {tripulante.Personaje.Nombre} recuperó la antena.";
@@ -44,7 +45,7 @@ public sealed partial class SesionMision
 
     private void TerminarMision(EstadoMision estado, string mensaje)
     {
-        ataquesDeshacibles.Clear();
+        CerrarHistorialAcciones();
         Estado = estado;
         MensajeFinal = mensaje;
         bitacora.Add(mensaje);

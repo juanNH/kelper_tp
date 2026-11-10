@@ -11,6 +11,7 @@ internal sealed class FormInicio : Form
     public event EventHandler? NuevaPartidaSolicitada;
     public event EventHandler? ContinuarPartidaSolicitada;
     public event EventHandler? TutorialSolicitado;
+    public event EventHandler? ProgresoSolicitado;
     public event EventHandler? CambioMusicaSolicitado;
 
     public FormInicio()
@@ -117,11 +118,12 @@ internal sealed class FormInicio : Form
             Dock = DockStyle.Fill,
             AutoSize = true,
             ColumnCount = 2,
-            RowCount = 2,
+            RowCount = 3,
             Margin = new Padding(0, 0, 0, 20)
         };
         acciones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 64F));
         acciones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36F));
+        acciones.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         acciones.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         acciones.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         menu.Controls.Add(acciones, 0, 4);
@@ -139,15 +141,23 @@ internal sealed class FormInicio : Form
         Button continuar = CrearBoton("Continuar partida", Superficie, Texto);
         continuar.Name = "btnContinuarPartida";
         continuar.MinimumSize = new Size(0, 44);
-        continuar.Margin = new Padding(0, 0, 8, 0);
+        continuar.Margin = new Padding(0, 0, 8, 8);
         continuar.Click += (_, _) => ContinuarPartidaSolicitada?.Invoke(this, EventArgs.Empty);
         acciones.Controls.Add(continuar, 0, 1);
 
         Button tutorial = CrearBoton("Tutorial", Superficie, Texto);
         tutorial.Name = "btnTutorial";
         tutorial.MinimumSize = new Size(0, 44);
+        tutorial.Margin = new Padding(0, 0, 0, 8);
         tutorial.Click += (_, _) => TutorialSolicitado?.Invoke(this, EventArgs.Empty);
         acciones.Controls.Add(tutorial, 1, 1);
+
+        Button progreso = CrearBoton("Progreso y logros", Superficie, Texto);
+        progreso.Name = "btnProgreso";
+        progreso.MinimumSize = new Size(0, 44);
+        progreso.Click += (_, _) => ProgresoSolicitado?.Invoke(this, EventArgs.Empty);
+        acciones.Controls.Add(progreso, 0, 2);
+        acciones.SetColumnSpan(progreso, 2);
 
         menu.Controls.Add(CrearEtiqueta("INTEGRANTES", 10F, FontStyle.Bold, Acento, 4), 0, 5);
         menu.Controls.Add(CrearEtiqueta("Valentin Regal\r\nJuan Herrera\r\nEzequiel Crivelle", 12F, FontStyle.Regular, Texto, 0), 0, 6);

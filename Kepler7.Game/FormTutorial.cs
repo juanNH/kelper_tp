@@ -10,9 +10,9 @@ internal sealed class FormTutorial : Form
     [
         ("Prepará el despliegue", "Armá tu escuadrón y configurá la señal de rescate antes de entrar al tablero.",
         [
-            ("Elegí una nave", "En Nueva partida, ingresá un nombre y avanzá al Hangar. Seleccioná una receta y revisá los componentes de la nave."),
+            ("Elegí una nave", "En Nueva partida, ingresá un nombre y avanzá al Hangar. Seleccioná una receta y revisá sus componentes. Podés probar Construir, Deshacer y Rehacer antes de continuar."),
             ("Formá el escuadrón", "Elegí dos tripulantes. Para cambiar las habilidades de un integrante, tocá Clonar y editá la copia. Las habilidades dan bonos de daño, movimiento o curación."),
-            ("Equipá y desplegá", "Asigná un arma y una armadura a cada tripulante. El botiquín es opcional. Elegí el tipo de mensaje y el cifrado, revisá el resumen y tocá Desplegar.")
+            ("Equipá y desplegá", "Asigná un arma, una armadura y un rol de combate a cada tripulante. El botiquín es opcional. Elegí el tipo de mensaje y el cifrado, revisá el resumen y tocá Desplegar.")
         ]),
         ("Jugá tu turno", "Elegí dónde mover a cada tripulante y cuándo atacar. La bitácora muestra lo que sucede en el tablero.",
         [
@@ -23,14 +23,14 @@ internal sealed class FormTutorial : Form
         ("Turnos y estrategias", "Probá Template Method y Strategy al cerrar una ronda y comparar a los dos drones.",
         [
             ("Cambiá la estrategia", "En el panel Estrategia, elegí Defensiva para el Dron 1 y Agresiva para el Dron 2. La bitácora registra cada cambio que hagas."),
-            ("Las cuatro etapas", "Tocá Finalizar turno, aunque no hayas movido ni atacado. Buscá en la bitácora Inicio, Decisión, Acción y Finalización. El orden se mantiene para los tripulantes y los drones."),
+            ("Las cuatro etapas", "Tocá Finalizar turno, aunque no hayas movido ni atacado. Buscá en la bitácora Inicio, Decisión, Acción y Finalización. Cada rol de combate sigue ese orden."),
             ("Dos estrategias", "El dron Defensivo conserva su posición y puede repararse si baja de 30 PV. El Agresivo se acerca y dispara si queda en alcance. Compará Decisión y Acción en la bitácora.")
         ]),
         ("Deshacé un ataque", "Probá Command y verificá qué recuperan el dron y el tripulante.",
         [
             ("Atacá a un dron", "Acercá a un tripulante hasta quedar a tres casillas o menos de un dron. Tocá Atacar, elegí el dron y fijate cuánta vida y escudo le quedaron."),
-            ("Deshacé el golpe", "Tocá Deshacer ataque antes de mover, usar un botiquín, aplicar un estado o cerrar el turno. La bitácora muestra los PV y puntos de cada escudo restaurados. Si el dron cayó, vuelve al tablero."),
-            ("Volvé a atacar", "Seleccioná al mismo tripulante y tocá Atacar de nuevo. Al deshacer el golpe, recuperó su acción de ataque.")
+            ("Deshacé el golpe", "Tocá Deshacer ataque. La bitácora muestra los PV y puntos de cada escudo restaurados. Si hiciste otra acción después del ataque, deshacela primero. Si el dron cayó, vuelve al tablero."),
+            ("Rehacé y revisá", "Abrí Más comandos (⋯) para usar Rehacer o leer el historial. También podés deshacer movimientos y botiquines. Cerrá el turno cuando hayas terminado de probar.")
         ]),
         ("Aplicá estados", "Probá State desde Aplicar estado, sobre el tablero. Elegí un aliado o un dron activo en estado Normal.",
         [

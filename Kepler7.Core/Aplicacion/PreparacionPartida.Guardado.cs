@@ -17,7 +17,10 @@ public sealed partial class PreparacionPartida
         }
 
         return new EstadoGuardadoPartida(GuardadoPartida.VersionActual, etapa,
-            CapturarPreparacion(), mision?.CapturarEstado(), Array.AsReadOnly(bitacora.ToArray()));
+            CapturarPreparacion(), mision?.CapturarEstado(), Array.AsReadOnly(bitacora.ToArray()))
+        {
+            Progreso = progreso.CapturarEstado()
+        };
     }
 
     public static PreparacionPartida Restaurar(EstadoGuardadoPartida estado)
@@ -25,6 +28,7 @@ public sealed partial class PreparacionPartida
         GuardadoPartida.Validar(estado);
         var partida = new PreparacionPartida();
         partida.RestaurarPreparacion(estado.Preparacion);
+        partida.progreso.Restaurar(estado.Progreso);
 
         if (estado.Etapa == EtapaPartida.Mision && !partida.DespliegueVigente)
         {

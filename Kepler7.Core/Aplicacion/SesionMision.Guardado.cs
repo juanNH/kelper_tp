@@ -13,7 +13,7 @@ public sealed partial class SesionMision
     public EstadoGuardadoMision CapturarEstado() => new(Ronda, Estado, MensajeFinal, activa,
         Array.AsReadOnly(unidades.Select(CapturarUnidad).ToArray()), azarGuardable?.CapturarEstado())
     {
-        AtaquesDeshacibles = ataquesDeshacibles.Count == 0 ? null : Array.AsReadOnly(ataquesDeshacibles.ToArray()),
+        Comandos = CapturarHistorialComandos(),
         Estacion = emergenciaActivada || estacionApagada ? new(emergenciaActivada, estacionApagada) : null
     };
 
@@ -42,7 +42,7 @@ public sealed partial class SesionMision
                 || !identificadores.Add(ficha.Identificador) || !DentroDelTablero(ficha.Posicion)
                 || Obstaculos.Contains(ficha.Posicion) || (ficha.Vida > 0 && !posiciones.Add(ficha.Posicion))
                 || ficha.Vida < 0 || ficha.Vida > unidad.Personaje.Vida.PuntosMaximos
-                || !EscudosGuardadosValidos(ficha, unidad)
+                || !(ficha.CadenaDefensas == null ? EscudosGuardadosValidos(ficha, unidad) : CadenaDefensasGuardadaValida(unidad, ficha))
                 || (ficha.BotiquinUsado && unidad.Botiquin == null)
                 || (ficha.RondaUsoBotiquin is int rondaUso && (!ficha.BotiquinUsado || rondaUso < 1 || rondaUso > estado.Ronda))
                 || (ficha.EstrategiaDron is { } estrategia && (unidad.IA == null || !Enum.IsDefined(estrategia))))
@@ -61,6 +61,7 @@ public sealed partial class SesionMision
 
         foreach (var (unidad, ficha, efecto) in restauraciones)
         {
+            RestaurarCadenaDefensas(unidad, ficha.CadenaDefensas);
             RestaurarUnidad(unidad, ficha, efecto);
         }
 
@@ -75,7 +76,7 @@ public sealed partial class SesionMision
         activa = estado.Activa;
         emergenciaActivada = estado.Estacion?.EmergenciaActivada == true;
         estacionApagada = estado.Estacion?.Apagada == true;
-        RestaurarAtaquesGuardados(estado.AtaquesDeshacibles, estado.Azar?.Tiradas);
+        RestaurarHistorialComandos(estado.Comandos, estado.AtaquesDeshacibles, estado.Azar?.Tiradas);
     }
 
     private static bool EscudosGuardadosValidos(EstadoGuardadoUnidad ficha, UnidadMision unidad)
@@ -84,63 +85,6 @@ public sealed partial class SesionMision
         return escudos.Count == unidad.EscudosMaximos.Count
             && !escudos.Where((puntos, indice) => puntos < 0 || puntos > unidad.EscudosMaximos[indice]).Any()
             && escudos.Sum() == ficha.Escudo;
-    }
-
-    private void RestaurarAtaquesGuardados(IReadOnlyList<EstadoGuardadoAtaque>? ataques, int? tiradas)
-    {
-        if (ataques is not { Count: > 0 })
-        {
-            return;
-        }
-
-        const string error = "El historial guardado de ataques no es válido.";
-        if (MotivoBloqueoAcciones != null || ataques.Count > unidades.Count(EsAliadaViva))
-        {
-            throw new InvalidDataException(error);
-        }
-
-        var atacantes = new HashSet<int>();
-        var ocupadas = unidades.Where(EsUnidadViva).Select(ObtenerCasilla).ToHashSet();
-        var defensas = unidades.Where(unidad => !unidad.EsAliada).ToDictionary(unidad => unidad.Identificador,
-            unidad => (Vida: unidad.Personaje.Vida.Puntos, Escudos: (IReadOnlyList<int>)ObtenerPuntosEscudos(unidad.Personaje)));
-        var restaurados = new Stack<(EstadoGuardadoAtaque Estado, AtacarComando Comando)>();
-        // Se validan en orden de deshacer, porque ambos ataques pueden afectar al mismo dron.
-        for (int indice = ataques.Count - 1; indice >= 0; indice--)
-        {
-            EstadoGuardadoAtaque ataque = ataques[indice];
-            if (ataque == null || BuscarUnidad(ataque.Atacante) is not { Ataco: true } atacante
-                || !EsAliadaViva(atacante) || !atacante.Personaje.Estado.PuedeAtacar || !atacantes.Add(ataque.Atacante)
-                || BuscarUnidad(ataque.Objetivo) is not { EsAliada: false } objetivo
-                || !EnAlcanceAtaque(atacante.Personaje.Posicion, objetivo.Personaje.Posicion)
-                || ataque.TiradasAnteriores.HasValue != tiradas.HasValue
-                || ataque.TiradasAnteriores < 0 || ataque.TiradasAnteriores > tiradas)
-            {
-                throw new InvalidDataException(error);
-            }
-
-            var defensa = defensas[ataque.Objetivo];
-            if (ataque.VidaAnterior <= 0 || ataque.VidaAnterior < defensa.Vida
-                || ataque.VidaAnterior > objetivo.Personaje.Vida.PuntosMaximos
-                || ataque.EscudosAnteriores == null || ataque.EscudosAnteriores.Count != defensa.Escudos.Count
-                || ataque.EscudosAnteriores.Where((puntos, posicion) =>
-                    puntos < defensa.Escudos[posicion] || puntos > objetivo.EscudosMaximos[posicion]).Any()
-                || (defensa.Vida == 0 && !ocupadas.Add(ObtenerCasilla(objetivo))))
-            {
-                throw new InvalidDataException(error);
-            }
-
-            var anterior = ataque with { EscudosAnteriores = Array.AsReadOnly(ataque.EscudosAnteriores.ToArray()) };
-            defensas[ataque.Objetivo] = (anterior.VidaAnterior, anterior.EscudosAnteriores);
-            tiradas = anterior.TiradasAnteriores;
-            restaurados.Push((anterior, new AtacarComando(atacante.Personaje, objetivo.Personaje,
-                anterior.VidaAnterior, anterior.EscudosAnteriores)));
-        }
-
-        foreach (var (ataque, comando) in restaurados)
-        {
-            comandos.RegistrarParaDeshacer(comando);
-            ataquesDeshacibles.Add(ataque);
-        }
     }
 
     private static EstadoGuardadoUnidad CapturarUnidad(UnidadMision unidad)
@@ -155,6 +99,7 @@ public sealed partial class SesionMision
             escudos.Sum(), unidad.Movio, unidad.Ataco, unidad.BotiquinUsado, efecto)
         {
             Escudos = escudos.Length == 1 ? null : Array.AsReadOnly(escudos),
+            CadenaDefensas = CapturarCadenaDefensas(unidad),
             RondaUsoBotiquin = unidad.RondaUsoBotiquin is > 0 ? unidad.RondaUsoBotiquin : null,
             EstrategiaDron = estrategia == TipoEstrategiaDron.Agresiva ? null : estrategia
         };
@@ -230,6 +175,9 @@ public sealed record EstadoGuardadoMision(int Ronda, EstadoMision Estado, string
     public IReadOnlyList<EstadoGuardadoAtaque>? AtaquesDeshacibles { get; init; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public EstadoGuardadoHistorialComandos? Comandos { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public EstadoGuardadoEstacion? Estacion { get; init; }
 }
 
@@ -243,6 +191,9 @@ public sealed record EstadoGuardadoUnidad(int Identificador, CasillaMision Posic
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public IReadOnlyList<int>? Escudos { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public EstadoGuardadoCadenaDefensas? CadenaDefensas { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? RondaUsoBotiquin { get; init; }
 

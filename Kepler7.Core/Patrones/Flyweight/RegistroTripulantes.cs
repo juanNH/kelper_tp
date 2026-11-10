@@ -2,8 +2,6 @@ namespace Kepler7.Core.Patrones.Flyweight;
 
 public sealed class RegistroTripulantes
 {
-
-
     private static readonly string[] nombres =
     {
         "Alex", "Juan", "José", "Roberto", "Matías", "Rodrigo", "Camila", "Priscila", "Paula", "Milagros"
@@ -16,7 +14,9 @@ public sealed class RegistroTripulantes
 
     public IReadOnlyList<Tripulante> Tripulantes { get; private set; } = Array.Empty<Tripulante>();
     public int CantidadTripulantes => Tripulantes.Count;
-    public int EspeciesEnMemoria => FabricaEspecies.CantidadInstancias;
+    public int EspeciesEnMemoria => Tripulantes.Select(tripulante => tripulante.Especie)
+        .Distinct<IEspecie>(ReferenceEqualityComparer.Instance)
+        .Count();
 
     public void Generar(int cantidad) => Generar(cantidad, Random.Shared);
 

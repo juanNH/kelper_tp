@@ -62,6 +62,12 @@ public sealed partial class PreparacionPartida
     {
         FichaNave ficha = NaveSeleccionada
             ?? throw new InvalidOperationException("Seleccioná una nave antes de confirmar.");
+        if (PuedeConstruirNave)
+        {
+            ConstruirNaveSeleccionada();
+        }
+
+        ConfirmarCambiosHangar();
         if (NaveConfirmada)
         {
             return;

@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Kepler7.Core.Aplicacion;
 
@@ -18,7 +19,11 @@ public sealed record EstadoGuardadoPartida(
     EtapaPartida Etapa,
     EstadoGuardadoPreparacion Preparacion,
     EstadoGuardadoMision? Mision,
-    IReadOnlyList<string> Bitacora);
+    IReadOnlyList<string> Bitacora)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public EstadoProgresoPartida? Progreso { get; init; }
+}
 
 public static class GuardadoPartida
 {
@@ -53,6 +58,12 @@ public static class GuardadoPartida
             || estado.Bitacora.Count == 0 || estado.Bitacora.Any(string.IsNullOrWhiteSpace))
         {
             throw new InvalidDataException("El guardado no contiene una etapa, preparación y bitácora válidas.");
+        }
+
+        if (estado.Progreso is { } progreso && (progreso.Logros == null || progreso.Logros.Any(patron => !Enum.IsDefined(patron))
+            || progreso.Logros.Distinct().Count() != progreso.Logros.Count))
+        {
+            throw new InvalidDataException("El guardado contiene logros inválidos.");
         }
     }
 }

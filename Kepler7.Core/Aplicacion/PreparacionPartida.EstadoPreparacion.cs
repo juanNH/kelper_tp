@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Kepler7.Core.Patrones.Flyweight;
 
 namespace Kepler7.Core.Aplicacion;
@@ -8,7 +9,14 @@ public sealed partial class PreparacionPartida
         semillaRegistro, MisionRevisada, NaveSeleccionada?.Nombre, naveConfirmada?.Nombre,
         Escuadron, escuadronConfirmado, CapturarAsignaciones(asignacionesEquipo),
         equipoConfirmado == null ? null : CapturarAsignaciones(equipoConfirmado),
-        ProtocoloSeleccionado, protocoloConfirmado, RolBovedaSeleccionado, despliegue);
+        ProtocoloSeleccionado, protocoloConfirmado, RolBovedaSeleccionado, despliegue)
+    {
+        InventarioEnvenenado = InventarioEnvenenado,
+        RolesCombate = CapturarRolesCombate(),
+        CambiosBoveda = CapturarCambiosBoveda(),
+        CambiosBovedaPendientes = cambiosBovedaPendientes,
+        Hangar = CapturarHangar()
+    };
 
     private IReadOnlyList<AsignacionGuardadaEquipo> CapturarAsignaciones(
         Dictionary<(int Tripulante, TipoEquipo Tipo), int> asignaciones)
@@ -29,11 +37,18 @@ public sealed partial class PreparacionPartida
         MisionRevisada = estado.MisionRevisada;
         NaveSeleccionada = ResolverRecetaGuardada(estado.NaveSeleccionada);
         naveConfirmada = ResolverRecetaGuardada(estado.NaveConfirmada);
+        RestaurarHangar(estado.Hangar);
 
         ValidarEscuadronGuardado(estado.Escuadron, completo: false);
         escuadron.AddRange(estado.Escuadron.Select(ficha => (RestaurarTripulanteGuardado(ficha), ficha.EsClon)));
         escuadronConfirmado = estado.EscuadronConfirmado == null ? null
             : CopiarEscuadronConfirmado(estado.EscuadronConfirmado);
+
+        RestaurarRolesCombate(estado.RolesCombate);
+        if (estado.InventarioEnvenenado)
+        {
+            EnvenenarInventario();
+        }
 
         var catalogo = InventarioPreparacion.ToDictionary(item => (item.Tipo, item.Nombre));
         var asignaciones = RestaurarAsignaciones(estado.Equipamiento, catalogo);
@@ -58,6 +73,7 @@ public sealed partial class PreparacionPartida
         }
 
         rolBovedaSeleccionado = rolesBoveda[rol];
+        RestaurarCambiosBoveda(estado.CambiosBoveda, estado.CambiosBovedaPendientes);
         despliegue = estado.Despliegue == null ? null : RestaurarDespliegueGuardado(estado.Despliegue, catalogo);
     }
 
@@ -172,7 +188,11 @@ public sealed partial class PreparacionPartida
         var items = catalogo.Values.ToDictionary(item => item.Id);
         var equipo = Array.AsReadOnly(asignaciones.OrderBy(par => par.Value)
             .Select(par => items[par.Value] with { PortadorId = par.Key.Tripulante }).ToArray());
-        return new ResumenDespliegue(nave, integrantes, equipo, ValidarProtocoloGuardado(guardado.Protocolo));
+        return new ResumenDespliegue(nave, integrantes, equipo, ValidarProtocoloGuardado(guardado.Protocolo))
+        {
+            InventarioEnvenenado = guardado.InventarioEnvenenado,
+            RolesCombate = ValidarRolesCombate(guardado.RolesCombate, integrantes.Select(ficha => ficha.Identificador))
+        };
     }
 
     private static ProtocoloComunicaciones ValidarProtocoloGuardado(ProtocoloComunicaciones protocolo)
@@ -198,6 +218,22 @@ public sealed record EstadoGuardadoPreparacion(
     ProtocoloComunicaciones ProtocoloSeleccionado,
     ProtocoloComunicaciones? ProtocoloConfirmado,
     string RolBoveda,
-    ResumenDespliegue? Despliegue);
+    ResumenDespliegue? Despliegue)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool InventarioEnvenenado { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public IReadOnlyList<AsignacionRolCombate>? RolesCombate { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public IReadOnlyDictionary<string, string>? CambiosBoveda { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool CambiosBovedaPendientes { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public EstadoGuardadoHangar? Hangar { get; init; }
+}
 
 public sealed record AsignacionGuardadaEquipo(int Tripulante, TipoEquipo Tipo, string Nombre);

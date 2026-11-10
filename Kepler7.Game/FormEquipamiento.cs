@@ -10,6 +10,7 @@ internal sealed class FormEquipamiento : FormPasoPreparacion
     private readonly IReadOnlyList<FichaTripulante> integrantes;
     private readonly Dictionary<(int Integrante, TipoEquipo Tipo), ComboBox> selectores = new();
     private readonly ListBox inventario;
+    private readonly Label resumenInventario;
     private readonly Label detalle;
     private readonly Label estado;
     private IReadOnlyList<FichaEquipo> equipos = Array.Empty<FichaEquipo>();
@@ -42,7 +43,7 @@ internal sealed class FormEquipamiento : FormPasoPreparacion
         {
             Dock = DockStyle.Fill,
             ColumnCount = 1,
-            RowCount = 4,
+            RowCount = 5,
             BackColor = TemaPreparacion.Panel,
             Padding = new Padding(12),
             Margin = new Padding(0, 0, 12, 0)
@@ -50,14 +51,26 @@ internal sealed class FormEquipamiento : FormPasoPreparacion
         almacen.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         almacen.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         almacen.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        almacen.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         almacen.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
         almacen.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         almacen.Controls.Add(Etiqueta("INVENTARIO DE ESTACIÓN", Codigo, Acento));
-        ResumenInventario resumen = Preparacion.AnalizarInventario();
-        Label resumenInventario = Etiqueta($"{resumen.ValorTotal:N0} créditos  ·  {resumen.CantidadArmas} armas",
-            Cuerpo, Texto, 10);
+        resumenInventario = Etiqueta("", Cuerpo, Texto, 10);
         resumenInventario.Name = "lblResumenInventario";
         almacen.Controls.Add(resumenInventario);
+
+        Button visitantes = Boton("Visitantes");
+        visitantes.Name = "btnVisitantes";
+        visitantes.AccessibleDescription = "Permite calcular el precio, contar armas o aplicar veneno al inventario.";
+        visitantes.Anchor = AnchorStyles.Left;
+        visitantes.Margin = new Padding(0, 0, 0, 8);
+        visitantes.Click += (_, _) =>
+        {
+            using var operaciones = new FormVisitantesInventario(Preparacion);
+            operaciones.ShowDialog(this);
+            MostrarEquipo();
+        };
+        almacen.Controls.Add(visitantes);
 
         inventario = new ListBox
         {
@@ -121,7 +134,7 @@ internal sealed class FormEquipamiento : FormPasoPreparacion
             AutoSize = true,
             AutoSizeMode = AutoSizeMode.GrowAndShrink,
             ColumnCount = 2,
-            RowCount = 4,
+            RowCount = 6,
             BackColor = TemaPreparacion.Panel,
             Padding = new Padding(12),
             Margin = new Padding(0, 0, 0, ultima ? 0 : 10)
@@ -134,31 +147,50 @@ internal sealed class FormEquipamiento : FormPasoPreparacion
         ficha.Controls.Add(titulo, 0, 0);
         ficha.SetColumnSpan(titulo, 2);
 
+        ficha.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        Label etiquetaRol = Etiqueta("Rol de combate", FuenteSelector, Secundario, 6);
+        etiquetaRol.TextAlign = ContentAlignment.MiddleLeft;
+        etiquetaRol.Margin = new Padding(0, 2, 10, 6);
+        ficha.Controls.Add(etiquetaRol, 0, 1);
+        ComboBox roles = CrearSelector($"cmbRolCombate{integrante.Identificador}", $"Rol de combate de {integrante.Nombre}");
+        roles.DisplayMember = nameof(OpcionRolCombate.Nombre);
+        roles.Items.AddRange(CatalogoRolesCombate.Opciones.Cast<object>().ToArray());
+        OpcionRolCombate rolActual = CatalogoRolesCombate.Opciones
+            .Single(opcion => opcion.Rol == Preparacion.ObtenerRolCombate(integrante.Identificador));
+        roles.SelectedItem = rolActual;
+        roles.AccessibleDescription = rolActual.Descripcion;
+        ficha.Controls.Add(roles, 1, 1);
+
+        ficha.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        Label efectoRol = Etiqueta(rolActual.Descripcion, FuenteSelector, Secundario, 8);
+        efectoRol.Name = $"lblEfectoRol{integrante.Identificador}";
+        ficha.Controls.Add(efectoRol, 0, 2);
+        ficha.SetColumnSpan(efectoRol, 2);
+        roles.SelectionChangeCommitted += (_, _) =>
+        {
+            if (roles.SelectedItem is OpcionRolCombate opcion)
+            {
+                Preparacion.AsignarRolCombate(integrante.Identificador, opcion.Rol);
+                efectoRol.Text = opcion.Descripcion;
+                roles.AccessibleDescription = opcion.Descripcion;
+                ActualizarContinuar();
+            }
+        };
+
         TipoEquipo[] tipos = Enum.GetValues<TipoEquipo>();
         for (int indice = 0; indice < tipos.Length; indice++)
         {
             TipoEquipo tipo = tipos[indice];
             string etiqueta = NombreTipo(tipo);
-            int fila = indice + 1;
+            int fila = indice + 3;
             ficha.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             Label nombreTipo = Etiqueta(etiqueta, FuenteSelector, Secundario);
             nombreTipo.TextAlign = ContentAlignment.MiddleLeft;
             nombreTipo.Margin = new Padding(0, 2, 10, 6);
             ficha.Controls.Add(nombreTipo, 0, fila);
 
-            var opciones = new ComboBox
-            {
-                Name = $"cmbEquipo{integrante.Identificador}{tipo}",
-                AccessibleName = $"{etiqueta} de {integrante.Nombre}, ID {integrante.Identificador}",
-                DropDownStyle = ComboBoxStyle.DropDownList,
-                FlatStyle = FlatStyle.Flat,
-                AutoSize = true,
-                Dock = DockStyle.Top,
-                Font = FuenteSelector,
-                BackColor = Superficie,
-                ForeColor = Texto,
-                Margin = new Padding(0, 2, 0, 6)
-            };
+            ComboBox opciones = CrearSelector($"cmbEquipo{integrante.Identificador}{tipo}",
+                $"{etiqueta} de {integrante.Nombre}, ID {integrante.Identificador}");
             opciones.SelectedIndexChanged += (_, _) =>
             {
                 if (!actualizando && opciones.SelectedItem is OpcionEquipo opcion)
@@ -174,9 +206,26 @@ internal sealed class FormEquipamiento : FormPasoPreparacion
         return ficha;
     }
 
+    private static ComboBox CrearSelector(string nombre, string nombreAccesible) => new()
+    {
+        Name = nombre,
+        AccessibleName = nombreAccesible,
+        DropDownStyle = ComboBoxStyle.DropDownList,
+        FlatStyle = FlatStyle.Flat,
+        AutoSize = true,
+        Dock = DockStyle.Top,
+        Font = FuenteSelector,
+        BackColor = Superficie,
+        ForeColor = Texto,
+        Margin = new Padding(0, 2, 0, 6)
+    };
+
     private void MostrarEquipo()
     {
         equipos = Preparacion.InventarioPreparacion;
+        ResumenInventario resumen = Preparacion.AnalizarInventario();
+        string efecto = Preparacion.InventarioEnvenenado ? " envenenadas" : "";
+        resumenInventario.Text = $"{resumen.ValorTotal:N0} créditos  ·  {resumen.CantidadArmas} armas{efecto}";
         actualizando = true;
         try
         {

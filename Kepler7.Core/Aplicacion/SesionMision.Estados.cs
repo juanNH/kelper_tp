@@ -47,11 +47,12 @@ public sealed partial class SesionMision
             _ => throw new ArgumentOutOfRangeException(nameof(tipo))
         };
 
-        ataquesDeshacibles.Clear();
+        CerrarHistorialAcciones();
         personaje.CambiarEstado(estado);
         string duracion = estado.TurnosRestantes == 1 ? "1 turno" : $"{estado.TurnosRestantes} turnos";
         string mensaje = $"{personaje.Nombre} quedó en estado {estado.Nombre} por {duracion}.";
         bitacora.Add($"Ronda {Ronda}. {mensaje} {opcion.Descripcion}");
+        progreso.RegistrarLogro(PatronKepler.State);
         return new(true, mensaje);
     }
 

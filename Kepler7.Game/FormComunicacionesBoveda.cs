@@ -11,8 +11,10 @@ internal sealed class FormComunicacionesBoveda : FormPasoPreparacion
     private readonly ComboBox cifrado;
     private readonly Label estadoConsulta;
     private readonly TextBox consulta;
+    private readonly Button escribir;
     private readonly TextBox vistaPrevia;
     private readonly Label estado;
+    private bool archivoCargado;
 
     public FormComunicacionesBoveda(PreparacionPartida preparacion)
         : base(preparacion, "Comunicaciones y bóveda", 5)
@@ -23,7 +25,7 @@ internal sealed class FormComunicacionesBoveda : FormPasoPreparacion
         contenido.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
         contenido.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         contenido.Controls.Add(Etiqueta(
-            "Consultá los archivos y prepará la señal que se enviará al recuperar la antena.", Cuerpo, Secundario, 12), 0, 0);
+            "Administrá la bóveda y prepará la señal de rescate.", Cuerpo, Secundario, 12), 0, 0);
         Contenido.Controls.Add(contenido);
 
         var columnas = new TableLayoutPanel
@@ -37,28 +39,87 @@ internal sealed class FormComunicacionesBoveda : FormPasoPreparacion
         columnas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
         contenido.Controls.Add(columnas, 0, 1);
 
-        TableLayoutPanel boveda = CrearPanel(8, new Padding(0, 0, 12, 0));
-        boveda.Controls.Add(Etiqueta("BÓVEDA DE DATOS", Codigo, Acento, 10));
-        boveda.Controls.Add(Etiqueta("Rol de consulta", Cuerpo, Secundario, 4));
-        rol = CrearSelector("cmbRolBoveda", "Rol de consulta");
+        TableLayoutPanel boveda = CrearPanel(5, new Padding(0, 0, 12, 0));
+        var encabezadoBoveda = new TableLayoutPanel
+        {
+            AutoSize = true,
+            AutoSizeMode = AutoSizeMode.GrowAndShrink,
+            Dock = DockStyle.Top,
+            ColumnCount = 2,
+            RowCount = 1,
+            Margin = new Padding(0, 0, 0, 8)
+        };
+        encabezadoBoveda.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+        encabezadoBoveda.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+        encabezadoBoveda.Controls.Add(Etiqueta("BÓVEDA", Codigo, Acento, 0), 0, 0);
+        var historial = new LinkLabel
+        {
+            Name = "lnkHistorialBoveda",
+            AccessibleDescription = "Ver historial de accesos denegados",
+            Text = "Historial",
+            Font = Cuerpo,
+            LinkColor = Acento,
+            ActiveLinkColor = Texto,
+            AutoSize = true,
+            Margin = Padding.Empty
+        };
+        historial.LinkClicked += (_, _) => MostrarHistorial();
+        encabezadoBoveda.Controls.Add(historial, 1, 0);
+        boveda.Controls.Add(encabezadoBoveda);
+
+        var selectoresBoveda = new TableLayoutPanel
+        {
+            AutoSize = true,
+            AutoSizeMode = AutoSizeMode.GrowAndShrink,
+            Dock = DockStyle.Top,
+            ColumnCount = 2,
+            RowCount = 2,
+            Margin = new Padding(0, 0, 0, 4)
+        };
+        selectoresBoveda.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+        selectoresBoveda.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+        selectoresBoveda.Controls.Add(CrearEtiquetaSelector("Rol"), 0, 0);
+        rol = CrearSelector("cmbRolBoveda", "Rol de acceso");
+        rol.Margin = new Padding(0, 0, 0, 6);
         rol.Items.AddRange(Preparacion.RolesBoveda.ToArray());
         rol.SelectedItem = Preparacion.RolBovedaSeleccionado;
-        boveda.Controls.Add(rol);
+        selectoresBoveda.Controls.Add(rol, 1, 0);
 
-        boveda.Controls.Add(Etiqueta("Archivo", Cuerpo, Secundario, 4));
+        selectoresBoveda.Controls.Add(CrearEtiquetaSelector("Archivo"), 0, 1);
         archivo = CrearSelector("cmbArchivoBoveda", "Archivo de la bóveda");
+        archivo.Margin = new Padding(0, 0, 0, 6);
         archivo.Items.AddRange(Preparacion.ArchivosBoveda.ToArray());
         archivo.SelectedIndex = archivo.Items.Count > 0 ? 0 : -1;
-        boveda.Controls.Add(archivo);
+        selectoresBoveda.Controls.Add(archivo, 1, 1);
+        boveda.Controls.Add(selectoresBoveda);
 
-        Button consultar = Boton("Consultar archivo");
-        consultar.Margin = new Padding(0, 0, 0, 8);
+        var accionesBoveda = new TableLayoutPanel
+        {
+            Dock = DockStyle.Top,
+            ColumnCount = 2,
+            RowCount = 1,
+            Height = 36,
+            Margin = new Padding(0, 0, 0, 6)
+        };
+        accionesBoveda.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+        accionesBoveda.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+        Button consultar = CrearAccionBoveda("Leer", "btnConsultarArchivoBoveda");
+        consultar.Margin = new Padding(0, 0, 6, 0);
         consultar.Enabled = archivo.SelectedIndex >= 0;
         consultar.Click += (_, _) => ConsultarArchivo();
-        boveda.Controls.Add(consultar);
-        estadoConsulta = Etiqueta("Resultado de la consulta", Codigo, Secundario, 6);
+        accionesBoveda.Controls.Add(consultar, 0, 0);
+        escribir = CrearAccionBoveda("Escribir", "btnEscribirArchivoBoveda");
+        escribir.Enabled = false;
+        escribir.Click += (_, _) => EscribirArchivo();
+        accionesBoveda.Controls.Add(escribir, 1, 0);
+        boveda.Controls.Add(accionesBoveda);
+
+        estadoConsulta = Etiqueta("Contenido editable del archivo", Codigo, Secundario, 6);
         boveda.Controls.Add(estadoConsulta);
-        consulta = CrearLectura("txtConsultaBoveda", "Contenido de la bóveda", Cuerpo);
+        consulta = CrearLectura("txtConsultaBoveda", "Contenido editable del archivo de la bóveda", Cuerpo);
+        consulta.ReadOnly = false;
+        consulta.AcceptsReturn = true;
+        consulta.TextChanged += (_, _) => ActualizarEscritura();
         boveda.Controls.Add(consulta);
         columnas.Controls.Add(boveda, 0, 0);
 
@@ -117,17 +178,43 @@ internal sealed class FormComunicacionesBoveda : FormPasoPreparacion
         if (archivo.SelectedItem is string id)
         {
             ResultadoConsultaBoveda resultado = Preparacion.ConsultarArchivoBoveda(id);
-            estadoConsulta.Text = resultado.Autorizado ? "Acceso concedido" : "Consulta denegada";
+            archivoCargado = resultado.Autorizado;
+            estadoConsulta.Text = resultado.Autorizado ? "Lectura concedida" : resultado.Texto;
             estadoConsulta.ForeColor = Acento;
-            consulta.Text = resultado.Texto;
+            consulta.Text = resultado.Autorizado ? resultado.Texto : "";
+            ActualizarEscritura();
+        }
+    }
+
+    private void EscribirArchivo()
+    {
+        if (archivo.SelectedItem is string id)
+        {
+            ResultadoEscrituraBoveda resultado = Preparacion.EscribirArchivoBoveda(id, consulta.Text);
+            archivoCargado |= resultado.Guardado;
+            estadoConsulta.Text = resultado.Mensaje;
+            estadoConsulta.ForeColor = Acento;
+            ActualizarEscritura();
+            ActualizarContinuar();
         }
     }
 
     private void LimpiarConsulta()
     {
-        estadoConsulta.Text = "Resultado de la consulta";
+        archivoCargado = false;
+        estadoConsulta.Text = "Contenido editable del archivo";
         estadoConsulta.ForeColor = Secundario;
         consulta.Clear();
+        ActualizarEscritura();
+    }
+
+    private void ActualizarEscritura() =>
+        escribir.Enabled = archivo.SelectedItem is string && (archivoCargado || consulta.TextLength > 0);
+
+    private void MostrarHistorial()
+    {
+        using var historial = new FormHistorialBoveda(Preparacion.ConsultarHistorialBoveda());
+        historial.ShowDialog(this);
     }
 
     private void ActualizarProtocolo()
@@ -195,6 +282,24 @@ internal sealed class FormComunicacionesBoveda : FormPasoPreparacion
         ForeColor = Texto,
         Margin = Padding.Empty
     };
+
+    private static Label CrearEtiquetaSelector(string texto)
+    {
+        Label etiqueta = Etiqueta(texto, Cuerpo, Secundario, 6);
+        etiqueta.TextAlign = ContentAlignment.MiddleLeft;
+        etiqueta.Margin = new Padding(0, 0, 6, 6);
+        return etiqueta;
+    }
+
+    private static Button CrearAccionBoveda(string texto, string nombre)
+    {
+        Button accion = Boton(texto);
+        accion.Name = nombre;
+        accion.MinimumSize = new Size(0, 34);
+        accion.Padding = new Padding(2);
+        accion.Dock = DockStyle.Fill;
+        return accion;
+    }
 
     private sealed record Opcion<T>(T Valor, string Nombre)
     {

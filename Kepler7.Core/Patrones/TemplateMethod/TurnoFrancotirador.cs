@@ -5,7 +5,7 @@ using Kepler7.Core.Patrones.Strategy;
 namespace Kepler7.Core.Patrones.TemplateMethod;
 
 // Turno especializado para francotiradores: calibra mira telescópica, analiza cálculo balístico y dispara a distancia.
-public sealed class TurnoFrancotirador : TurnoUnidad
+public sealed class TurnoFrancotirador : TurnoTripulante
 {
     private readonly IEstrategiaIA estrategia;
 
@@ -17,11 +17,16 @@ public sealed class TurnoFrancotirador : TurnoUnidad
 
     protected override string Iniciar(Personaje? objetivo)
     {
-        return $"{Unidad.Nombre} (Francotirador) calibra el telémetro láser y busca ángulo de tiro. Estado: {Unidad.Estado.Nombre}, Posición: {Unidad.Posicion}.";
+        return $"{Unidad.Nombre} (Francotirador) revisa el ángulo de tiro y calibra el telémetro. Vida {Unidad.Vida.Puntos}/{Unidad.Vida.PuntosMaximos} PV y estado {EstadoActual}.";
     }
 
     protected override (IComando? Comando, string Detalle) Decidir(Personaje? objetivo)
     {
+        if (UsaAccionesDelJugador)
+        {
+            return DecidirCierreManual("El francotirador revisa el disparo y la posición que eligió el jugador.");
+        }
+
         if (!Unidad.Vida.EstaVivo)
         {
             return (null, $"{Unidad.Nombre} está fuera de combate.");

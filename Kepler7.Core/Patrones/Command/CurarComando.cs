@@ -20,6 +20,12 @@ public sealed class CurarComando : IComando
         Descripcion = $"Curar {cantidad} puntos a {objetivo.Nombre}.";
     }
 
+    internal CurarComando(Personaje objetivo, int cantidad, int puntosCurados) : this(objetivo, cantidad)
+    {
+        this.puntosCurados = puntosCurados;
+        fueEjecutado = true;
+    }
+
     public string Descripcion { get; private set; }
     public bool FueEjecutado => fueEjecutado;
     public Personaje Objetivo => objetivo;

@@ -18,6 +18,11 @@ Para preparar la base en otra instalación, conectate con autenticación de Wind
 
 1. `database/001_CrearBase.sql` crea la base `Kepler7`.
 2. `database/002_Partidas.sql` crea la tabla `dbo.Partidas` y su índice.
+3. `database/003_Progreso.sql` crea las tablas de progreso y logros. En una instalación existente con la tabla de partidas, ejecutá este script para habilitar el perfil.
+
+## Progreso
+
+**Progreso y logros** muestra el perfil compartido por las partidas de la base configurada. Ganás 20 XP al desplegar, 100 adicionales al ganar o 35 al perder y 25 por cada patrón que desbloqueás por primera vez. Cada 100 XP subís un nivel. Al terminar una misión se abre el resumen con el resultado, el estado del escuadrón y los logros nuevos.
 
 ## Organización
 

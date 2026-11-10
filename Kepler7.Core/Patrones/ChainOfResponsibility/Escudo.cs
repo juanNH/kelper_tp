@@ -6,11 +6,13 @@ public sealed class Escudo : ManejadorDanioBase
     public Escudo(int puntos)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(puntos);
+        PuntosIniciales = puntos;
         Puntos = puntos;
     }
 
     public override string Nombre => "Escudo";
     public int Puntos { get; private set; }
+    internal int PuntosIniciales { get; }
 
     public void Recargar(int puntos)
     {

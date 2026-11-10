@@ -22,6 +22,12 @@ public sealed partial class PreparacionPartida
 
     public bool EscuadronConfirmado => CoincideEscuadron(escuadronConfirmado);
 
+    public ResumenFlyweight ConsultarFlyweight()
+    {
+        RegistroTripulantes registro = registroTripulantes.Value;
+        return new ResumenFlyweight(registro.CantidadTripulantes, registro.EspeciesEnMemoria, registro.CantidadTripulantes);
+    }
+
     public IReadOnlyList<FichaTripulante> ConsultarTripulantes(string? especie = null)
     {
         return Array.AsReadOnly(registroTripulantes.Value.Tripulantes
@@ -62,6 +68,7 @@ public sealed partial class PreparacionPartida
         if (!integrante.EsClon)
         {
             escuadron[indice] = (integrante.Tripulante.Clonar(), true);
+            progreso.RegistrarLogro(PatronKepler.Prototype);
         }
     }
 
@@ -88,6 +95,7 @@ public sealed partial class PreparacionPartida
             throw new InvalidOperationException("Elegí dos tripulantes antes de confirmar.");
         }
 
+        progreso.RegistrarLogro(PatronKepler.Flyweight);
         if (EscuadronConfirmado)
         {
             return;
@@ -141,3 +149,5 @@ public sealed partial class PreparacionPartida
 
 public sealed record FichaTripulante(
     int Identificador, string Nombre, string Rango, string Especie, bool EsClon, IReadOnlyList<string> Habilidades);
+
+public sealed record ResumenFlyweight(int Tripulantes, int InstanciasCompartidas, int InstanciasSinCompartir);

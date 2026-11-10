@@ -21,17 +21,12 @@ public sealed class GestorComandos
         bool exito = comando.Ejecutar();
         if (exito)
         {
-            RegistrarParaDeshacer(comando);
+            pilaDeshacer.Push(comando);
+            pilaRehacer.Clear();
             historial.Add(comando.Descripcion);
         }
 
         return exito;
-    }
-
-    internal void RegistrarParaDeshacer(IComando comando)
-    {
-        pilaDeshacer.Push(comando);
-        pilaRehacer.Clear();
     }
 
     public bool Deshacer()
@@ -55,15 +50,38 @@ public sealed class GestorComandos
             return false;
         }
 
-        IComando comando = pilaRehacer.Pop();
+        IComando comando = pilaRehacer.Peek();
         bool exito = comando.Ejecutar();
         if (exito)
         {
+            pilaRehacer.Pop();
             pilaDeshacer.Push(comando);
             historial.Add($"Rehacer: {comando.Descripcion}");
         }
 
         return exito;
+    }
+
+    internal void LimpiarReversiones()
+    {
+        pilaDeshacer.Clear();
+        pilaRehacer.Clear();
+    }
+
+    internal void RestaurarHistorial(IEnumerable<string> entradas, IEnumerable<IComando> deshacer, IEnumerable<IComando> rehacer)
+    {
+        LimpiarReversiones();
+        historial.Clear();
+        historial.AddRange(entradas);
+        foreach (IComando comando in deshacer)
+        {
+            pilaDeshacer.Push(comando);
+        }
+
+        foreach (IComando comando in rehacer)
+        {
+            pilaRehacer.Push(comando);
+        }
     }
 
     public void LimpiarHistorial() => historial.Clear();

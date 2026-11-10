@@ -4,7 +4,7 @@ using Kepler7.Core.Patrones.State;
 namespace Kepler7.Core.Patrones.TemplateMethod;
 
 // Turno especializado para médicos: evalúa bioseñales, decide curación prioritaria y finaliza esterilizando instrumental.
-public sealed class TurnoMedico : TurnoUnidad
+public sealed class TurnoMedico : TurnoTripulante
 {
     private readonly int umbralCuracion;
     private readonly int cantidadCuracion;
@@ -22,11 +22,16 @@ public sealed class TurnoMedico : TurnoUnidad
 
     protected override string Iniciar(Personaje? objetivo)
     {
-        return $"{Unidad.Nombre} (Médico) escanea constantes vitales del escuadrón. Estado: {Unidad.Estado.Nombre}, Vida: {Unidad.Vida.Puntos}/{Unidad.Vida.PuntosMaximos}.";
+        return $"{Unidad.Nombre} (Médico) escanea constantes vitales del escuadrón. Vida {Unidad.Vida.Puntos}/{Unidad.Vida.PuntosMaximos} PV y estado {EstadoActual}.";
     }
 
     protected override (IComando? Comando, string Detalle) Decidir(Personaje? objetivo)
     {
+        if (UsaAccionesDelJugador)
+        {
+            return DecidirCierreManual("El médico revisa los suministros y registra la decisión del jugador sobre el botiquín.");
+        }
+
         if (!Unidad.Vida.EstaVivo)
         {
             return (null, $"{Unidad.Nombre} está fuera de combate.");

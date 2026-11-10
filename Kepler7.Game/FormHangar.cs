@@ -8,6 +8,9 @@ internal sealed class FormHangar : FormPasoPreparacion
     private readonly Dictionary<string, Button> botonesRecetas = new();
     private readonly TableLayoutPanel piezas;
     private readonly Label estado;
+    private readonly Button construir;
+    private readonly Button deshacer;
+    private readonly Button rehacer;
 
     public FormHangar(PreparacionPartida preparacion) : base(preparacion, "Hangar", 2)
     {
@@ -49,6 +52,16 @@ internal sealed class FormHangar : FormPasoPreparacion
         }
 
         contenido.Controls.Add(recetas);
+        var comandos = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Margin = new Padding(0, 0, 0, 8) };
+        construir = AgregarComando("Construir", "btnConstruirNave", (_, _) => Ejecutar(Preparacion.ConstruirNaveSeleccionada));
+        deshacer = AgregarComando("Deshacer", "btnDeshacerConstruccion", (_, _) => Ejecutar(Preparacion.DeshacerConstruccion));
+        rehacer = AgregarComando("Rehacer", "btnRehacerConstruccion", (_, _) => Ejecutar(Preparacion.RehacerConstruccion));
+        AgregarComando("Historial", "btnHistorialHangar", (_, _) =>
+        {
+            using var historial = new FormHistorialComandos(Preparacion.HistorialHangar);
+            historial.ShowDialog(this);
+        });
+        contenido.Controls.Add(comandos);
         contenido.Controls.Add(Etiqueta("COMPONENTES", Codigo, Acento));
 
         piezas = new TableLayoutPanel
@@ -74,11 +87,24 @@ internal sealed class FormHangar : FormPasoPreparacion
             EscuadronSolicitado?.Invoke(this, EventArgs.Empty);
         };
         MostrarNave();
+
+        Button AgregarComando(string texto, string nombre, EventHandler clic)
+        {
+            Button boton = Boton(texto);
+            boton.Name = nombre;
+            boton.MinimumSize = new Size(0, 34);
+            boton.Margin = new Padding(0, 0, 6, 4);
+            boton.Click += clic;
+            comandos.Controls.Add(boton);
+            return boton;
+        }
     }
 
     public event EventHandler? EscuadronSolicitado;
 
-    private void MostrarNave()
+    private void Ejecutar(Func<ResultadoComandoHangar> ejecutar) => MostrarNave(ejecutar().Mensaje);
+
+    private void MostrarNave(string? mensaje = null)
     {
         FichaNave? nave = Preparacion.NaveSeleccionada;
         foreach (var (nombre, boton) in botonesRecetas)
@@ -113,8 +139,13 @@ internal sealed class FormHangar : FormPasoPreparacion
         piezas.ResumeLayout();
         Continuar.Enabled = nave != null;
         EstiloBoton(Continuar, Continuar.Enabled);
-        estado.Text = Preparacion.NaveConfirmada
+        construir.Enabled = Preparacion.PuedeConstruirNave;
+        deshacer.Enabled = Preparacion.PuedeDeshacerConstruccion;
+        rehacer.Enabled = Preparacion.PuedeRehacerConstruccion;
+        estado.Text = mensaje ?? (Preparacion.NaveConfirmada
             ? "Nave confirmada. Continuá a Escuadrón."
-            : nave == null ? "Seleccioná una nave para habilitar Continuar." : $"Nave elegida: {nave.Nombre}.";
+            : nave == null ? "Seleccioná una nave para habilitar Continuar."
+            : Preparacion.NaveSeleccionadaConstruida ? $"Nave {nave.Nombre} ensamblada en el hangar."
+            : $"Receta {nave.Nombre} seleccionada. Podés ensamblarla ahora o al continuar.");
     }
 }

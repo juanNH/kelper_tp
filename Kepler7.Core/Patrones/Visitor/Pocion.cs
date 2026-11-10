@@ -25,5 +25,7 @@ public sealed class Pocion : IItem
 
     public void Contaminar() => Contaminada = true;
 
+    internal void Descontaminar() => Contaminada = false;
+
     public void Aceptar(IVisitor visitor) => visitor.Visitar(this);
 }

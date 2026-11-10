@@ -14,14 +14,14 @@ public sealed partial class SesionMision
         }
 
         Personaje personaje = unidad!.Personaje;
+        EstadoCambioComando antes = CapturarCambioComando(unidad);
         var comando = new CurarComando(personaje, unidad.CuracionBotiquin);
-        if (!comandos.Ejecutar(comando))
+        if (!comandosJugador.Ejecutar(comando))
         {
             return new ResultadoUsoBotiquin(false, comando.Descripcion);
         }
 
-        ataquesDeshacibles.Clear();
-        unidad.RondaUsoBotiquin = Ronda;
+        RegistrarAccion(TipoComandoMision.Curar, unidad, unidad, antes);
         string mensaje = $"{personaje.Nombre} usó {unidad.Botiquin!.Nombre} y recuperó {comando.PuntosCurados} PV. "
             + $"Vida actual {personaje.Vida.Puntos}/{personaje.Vida.PuntosMaximos}.";
         bitacora.Add(mensaje);
@@ -43,6 +43,11 @@ public sealed partial class SesionMision
         if (unidad.Botiquin == null)
         {
             return "El tripulante no tiene un botiquín equipado.";
+        }
+
+        if (unidad.Botiquin.Contaminada)
+        {
+            return "El botiquín está contaminado y no se puede usar.";
         }
 
         if (unidad.Personaje.Estado is Aturdido)

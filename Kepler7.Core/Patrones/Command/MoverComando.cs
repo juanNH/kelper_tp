@@ -23,6 +23,12 @@ public sealed class MoverComando : IComando
     {
     }
 
+    internal MoverComando(Personaje personaje, Posicion destino, Posicion origen) : this(personaje, destino)
+    {
+        posicionAnterior = origen;
+        fueEjecutado = true;
+    }
+
     public string Descripcion { get; private set; }
     public bool FueEjecutado => fueEjecutado;
     public Personaje Personaje => personaje;

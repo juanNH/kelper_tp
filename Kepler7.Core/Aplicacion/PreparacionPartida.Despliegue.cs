@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Kepler7.Core.Patrones.Command;
 using Kepler7.Core.Patrones.Visitor;
 
@@ -14,7 +15,10 @@ public sealed partial class PreparacionPartida
         && naveConfirmada == despliegue.Nave
         && CoincideEscuadron(despliegue.Escuadron)
         && protocoloConfirmado == despliegue.Protocolo
-        && EquipoAsignado().SequenceEqual(despliegue.Equipo);
+        && InventarioEnvenenado == despliegue.InventarioEnvenenado
+        && EquipoAsignado().SequenceEqual(despliegue.Equipo)
+        && escuadron.All(integrante =>
+            ObtenerRolCombate(integrante.Tripulante.Identificador) == despliegue.RolDe(integrante.Tripulante.Identificador));
 
     public ResumenDespliegue ObtenerResumenDespliegue()
     {
@@ -23,7 +27,11 @@ public sealed partial class PreparacionPartida
             throw new InvalidOperationException("Completá y confirmá la preparación antes de desplegar.");
         }
 
-        return new ResumenDespliegue(naveConfirmada!, escuadronConfirmado!, EquipoAsignado(), protocoloConfirmado!);
+        return new ResumenDespliegue(naveConfirmada!, escuadronConfirmado!, EquipoAsignado(), protocoloConfirmado!)
+        {
+            InventarioEnvenenado = InventarioEnvenenado,
+            RolesCombate = CapturarRolesCombate()
+        };
     }
 
     public void Desplegar()
@@ -58,7 +66,7 @@ public sealed partial class PreparacionPartida
         IReadOnlyList<IItem> items = inventarioPreparacion.Items;
         var equipoPorAliado = resumen.Equipo.ToLookup(item => item.PortadorId!.Value,
             item => items[item.Id - 1]);
-        return new SesionMision(resumen, bitacora, equipoPorAliado, controlCentral);
+        return new SesionMision(resumen, bitacora, equipoPorAliado, controlCentral, progreso);
     }
 
     private IReadOnlyList<FichaEquipo> EquipoAsignado() =>
@@ -69,4 +77,14 @@ public sealed record ResumenDespliegue(
     FichaNave Nave,
     IReadOnlyList<FichaTripulante> Escuadron,
     IReadOnlyList<FichaEquipo> Equipo,
-    ProtocoloComunicaciones Protocolo);
+    ProtocoloComunicaciones Protocolo)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool InventarioEnvenenado { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public IReadOnlyList<AsignacionRolCombate>? RolesCombate { get; init; }
+
+    internal RolCombate RolDe(int identificador) =>
+        RolesCombate?.FirstOrDefault(asignacion => asignacion.Tripulante == identificador)?.Rol ?? RolCombate.Soldado;
+}

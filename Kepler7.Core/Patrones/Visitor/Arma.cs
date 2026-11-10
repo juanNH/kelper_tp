@@ -16,9 +16,12 @@ public sealed class Arma : IItem
     public string Nombre { get; }
     public int Precio { get; }
     public int Danio { get; }
+    public int DanioEfectivo => Danio + (Envenenada ? 3 : 0);
     public bool Envenenada { get; private set; }
 
     public void Envenenar() => Envenenada = true;
+
+    internal void QuitarVeneno() => Envenenada = false;
 
     public void Aceptar(IVisitor visitor) => visitor.Visitar(this);
 }

@@ -15,12 +15,19 @@ public sealed partial class SesionMision
             return new ResultadoTurnoMision(false, motivo);
         }
 
-        ataquesDeshacibles.Clear();
+        CerrarHistorialAcciones();
         foreach (UnidadMision aliada in unidades.Where(EsAliadaViva))
         {
-            var turno = new TurnoTripulante(aliada.Personaje, aliada.Movio, aliada.Ataco,
-                aliada.RondaUsoBotiquin == Ronda, comandos);
+            TurnoTripulante turno = aliada.Rol switch
+            {
+                RolCombate.Medico => new TurnoMedico(aliada.Personaje, gestor: comandos),
+                RolCombate.Francotirador => new TurnoFrancotirador(aliada.Personaje, gestor: comandos),
+                RolCombate.Comandante => new TurnoComandante(aliada.Personaje, gestor: comandos),
+                _ => new TurnoSoldado(aliada.Personaje, gestor: comandos)
+            };
+            turno.UsarAccionesDelJugador(aliada.Movio, aliada.Ataco, aliada.RondaUsoBotiquin == Ronda);
             RegistrarTurno(aliada, turno.EjecutarTurno());
+            progreso.RegistrarLogro(PatronKepler.TemplateMethod);
         }
 
         if (unidades.Any(EsAliadaViva))

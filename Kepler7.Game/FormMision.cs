@@ -21,12 +21,16 @@ internal sealed class FormMision : FormConBitacora
     private readonly ToolStripLabel estadoEstacion = new() { Name = "lblEstadoEstacionMenu" };
     private readonly ToolStripMenuItem activarEmergencia = new("Activar emergencia") { Name = "menuActivarEmergencia" };
     private readonly ToolStripMenuItem apagarEstacion = new("Apagar estación") { Name = "menuApagarEstacion" };
+    private readonly ToolStripMenuItem editarDefensas = new("Configurar defensas") { Name = "menuConfigurarDefensas" };
     private readonly Label turno;
     private readonly Label unidadSeleccionada;
     private readonly Label equipo;
     private readonly Label estado;
     private readonly Button atacar;
     private readonly Button deshacerAtaque;
+    private readonly Button masComandos;
+    private readonly ContextMenuStrip menuComandos = new();
+    private readonly ToolStripMenuItem rehacer = new("Rehacer") { Name = "menuRehacer" };
     private readonly Button usarBotiquin;
     private readonly Button recuperarAntena;
     private readonly Button finalizarTurno;
@@ -136,6 +140,9 @@ internal sealed class FormMision : FormConBitacora
         menuEstacion.Items.Add(new ToolStripSeparator());
         menuEstacion.Items.Add(activarEmergencia);
         menuEstacion.Items.Add(apagarEstacion);
+        menuEstacion.Items.Add(new ToolStripSeparator());
+        menuEstacion.Items.Add(editarDefensas);
+        editarDefensas.Click += (_, _) => ConfigurarDefensas();
         controlesTablero.Controls.Add(controlCentral);
         zonaTablero.Controls.Add(controlesTablero, 1, 0);
 
@@ -203,12 +210,40 @@ internal sealed class FormMision : FormConBitacora
 
         deshacerAtaque = Boton("Deshacer ataque");
         deshacerAtaque.Name = "btnDeshacerAtaque";
-        deshacerAtaque.AccessibleDescription = "Restaura la vida y los escudos del dron y devuelve la acción al tripulante.";
         deshacerAtaque.AutoSizeMode = AutoSizeMode.GrowAndShrink;
         deshacerAtaque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-        deshacerAtaque.Margin = new Padding(0, 6, 0, 0);
-        deshacerAtaque.Click += (_, _) => DeshacerAtaque();
-        botones.Controls.Add(deshacerAtaque, 0, 1);
+        deshacerAtaque.Margin = Padding.Empty;
+        deshacerAtaque.Click += (_, _) => EjecutarComando(mision.DeshacerAccion);
+        masComandos = Boton("⋯");
+        masComandos.Name = "btnMasComandos";
+        masComandos.AccessibleName = "Más comandos";
+        masComandos.MinimumSize = new Size(32, deshacerAtaque.MinimumSize.Height);
+        masComandos.Padding = Padding.Empty;
+        masComandos.Margin = new Padding(4, 0, 0, 0);
+        ayuda.SetToolTip(masComandos, "Rehacer e historial de comandos");
+        menuComandos.Name = "menuComandos";
+        menuComandos.Font = Cuerpo;
+        masComandos.Click += (_, _) => menuComandos.Show(masComandos, new Point(0, masComandos.Height));
+        rehacer.Click += (_, _) => EjecutarComando(mision.RehacerAccion);
+        var historialComandos = new ToolStripMenuItem("Historial de comandos") { Name = "menuHistorialComandos" };
+        historialComandos.Click += (_, _) =>
+        {
+            using var historial = new FormHistorialComandos(mision.HistorialComandos);
+            historial.ShowDialog(this);
+        };
+        menuComandos.Items.Add(rehacer);
+        menuComandos.Items.Add(historialComandos);
+        var accionesComando = new FlowLayoutPanel
+        {
+            AutoSize = true,
+            AutoSizeMode = AutoSizeMode.GrowAndShrink,
+            Anchor = AnchorStyles.Top | AnchorStyles.Right,
+            WrapContents = false,
+            Margin = new Padding(0, 6, 0, 0)
+        };
+        accionesComando.Controls.Add(deshacerAtaque);
+        accionesComando.Controls.Add(masComandos);
+        botones.Controls.Add(accionesComando, 0, 1);
 
         recuperarAntena = Boton("Recuperar antena");
         recuperarAntena.Name = "btnRecuperarAntena";
@@ -245,6 +280,7 @@ internal sealed class FormMision : FormConBitacora
             ayuda.Dispose();
             menuEstados.Dispose();
             menuEstacion.Dispose();
+            menuComandos.Dispose();
         }
 
         base.Dispose(disposing);
@@ -381,6 +417,7 @@ internal sealed class FormMision : FormConBitacora
     {
         activarEmergencia.Enabled = mision.PuedeActivarEmergencia;
         apagarEstacion.Enabled = mision.PuedeApagarEstacion;
+        editarDefensas.Enabled = mision.PuedeConfigurarDefensas;
         estadoEstacion.Text = mision.EstadoEstacion switch
         {
             EstadoOperativoEstacion.Emergencia => "Estación en emergencia",
@@ -390,6 +427,17 @@ internal sealed class FormMision : FormConBitacora
         controlCentral.AccessibleDescription = $"{estadoEstacion.Text}. Abre las operaciones del control central.";
         ayuda.SetToolTip(controlCentral, estadoEstacion.Text);
         controlCentral.Visible = enCurso;
+    }
+
+    private void ConfigurarDefensas()
+    {
+        using var editor = new FormCadenaDefensas(mision, seleccionada);
+        editor.ShowDialog(this);
+        if (editor.CambiosRealizados)
+        {
+            modoAtaque = false;
+            MostrarResultado(true, editor.Mensaje);
+        }
     }
 
     private void UsarBotiquin()
@@ -403,9 +451,9 @@ internal sealed class FormMision : FormConBitacora
         MostrarResultado(resultado.Realizado, resultado.Mensaje);
     }
 
-    private void DeshacerAtaque()
+    private void EjecutarComando(Func<ResultadoComandoMision> ejecutar)
     {
-        ResultadoAtaque resultado = mision.DeshacerAtaque();
+        ResultadoComandoMision resultado = ejecutar();
         if (resultado.Realizado)
         {
             modoAtaque = false;
@@ -519,7 +567,9 @@ internal sealed class FormMision : FormConBitacora
         ActualizarBoton(finalizarTurno, mision.PuedeFinalizarTurno, principal: !puedeRecuperar);
         atacar.Text = modoAtaque ? "Cancelar ataque" : "Atacar";
         ActualizarBoton(atacar, aliada?.PuedeAtacar == true, principal: !modoAtaque && !puedeRecuperar);
-        ActualizarBoton(deshacerAtaque, mision.PuedeDeshacerAtaque, principal: false);
+        deshacerAtaque.Text = mision.PuedeDeshacerAtaque ? "Deshacer ataque" : "Deshacer acción";
+        ActualizarBoton(deshacerAtaque, mision.PuedeDeshacer, principal: false);
+        rehacer.Enabled = mision.PuedeRehacer;
         ActualizarBoton(usarBotiquin, aliada?.PuedeUsarBotiquin == true, principal: false);
 
         turno.Text = enCurso ? "TU TURNO" : "MISIÓN FINALIZADA";
@@ -544,9 +594,11 @@ internal sealed class FormMision : FormConBitacora
     {
         string botiquin = unidad.Botiquin == null ? "Sin botiquín"
             : unidad.BotiquinUsado ? $"{unidad.Botiquin} gastado"
+            : unidad.BotiquinContaminado ? $"{unidad.Botiquin} (contaminado)"
             : $"{unidad.Botiquin} (cura hasta {unidad.CuracionBotiquin} PV)";
         string habilidades = unidad.Habilidades.Count == 0 ? "Sin habilidades" : string.Join(", ", unidad.Habilidades);
-        return $"{unidad.Arma} ({unidad.DanioActual} daño) · {unidad.Armadura} ({unidad.Defensa} defensa)"
+        string rol = unidad.RolCombate == null ? "" : $"{unidad.RolCombate.Nombre} · ";
+        return $"{rol}{unidad.Arma} ({unidad.DanioActual} daño) · {unidad.Armadura} ({unidad.Defensa} defensa)"
             + $"\nMovimiento {unidad.MovimientoActual} · {habilidades}\n{botiquin}";
     }
 

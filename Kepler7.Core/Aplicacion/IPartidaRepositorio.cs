@@ -9,6 +9,8 @@ public interface IPartidaRepositorio
 
     Task<PartidaGuardada?> CargarAsync(long id, CancellationToken cancelacion = default);
 
+    Task<ProgresoJugador> ObtenerProgresoAsync(CancellationToken cancelacion = default);
+
     /// <summary>Guarda una partida pendiente si coincide su revisión. Devuelve null si ya no se puede actualizar.</summary>
     Task<ResumenPartidaGuardada?> GuardarAsync(long id, long revisionEsperada, EstadoGuardadoPartida estado,
         CancellationToken cancelacion = default);
@@ -23,6 +25,9 @@ public enum EstadoPartidaGuardada : byte
 }
 
 public sealed record ResumenPartidaGuardada(long Id, string Nombre, EtapaPartida Etapa, EstadoPartidaGuardada Estado,
-    int VersionFormato, DateTime ActualizadaUtc, long Revision);
+    int VersionFormato, DateTime ActualizadaUtc, long Revision)
+{
+    public ProgresoJugador? Progreso { get; init; }
+}
 
 public sealed record PartidaGuardada(ResumenPartidaGuardada Resumen, EstadoGuardadoPartida Datos);

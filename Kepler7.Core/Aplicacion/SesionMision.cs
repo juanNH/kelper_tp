@@ -23,22 +23,26 @@ public sealed partial class SesionMision
     private readonly List<string> bitacora;
     private readonly GestorComandos comandos = new();
     private readonly Random azar;
+    private readonly ProgresoPartida progreso;
     private bool activa = true;
 
     internal SesionMision(ResumenDespliegue despliegue, List<string> bitacora,
-        ILookup<int, IItem> equipoPorAliado, ControlCentral controlCentral, Random? azar = null)
+        ILookup<int, IItem> equipoPorAliado, ControlCentral controlCentral, ProgresoPartida progreso, Random? azar = null)
     {
         azar ??= new AzarGuardable(Random.Shared.Next());
         this.azar = azar;
         azarGuardable = azar as AzarGuardable;
         this.bitacora = bitacora;
         this.controlCentral = controlCentral;
+        this.progreso = progreso;
         protocoloMision = despliegue.Protocolo;
         Bitacora = bitacora.AsReadOnly();
         unidades = new[]
         {
-            CrearAliada(despliegue.Escuadron[0], new CasillaMision(2, 3), equipoPorAliado, azar),
-            CrearAliada(despliegue.Escuadron[1], new CasillaMision(1, 4), equipoPorAliado, azar),
+            CrearAliada(despliegue.Escuadron[0], despliegue.RolDe(despliegue.Escuadron[0].Identificador),
+                new CasillaMision(2, 3), equipoPorAliado, azar),
+            CrearAliada(despliegue.Escuadron[1], despliegue.RolDe(despliegue.Escuadron[1].Identificador),
+                new CasillaMision(1, 4), equipoPorAliado, azar),
             CrearDron(-1, "Dron 1", new CasillaMision(5, 2), azar),
             CrearDron(-2, "Dron 2", new CasillaMision(6, 4), azar)
         };
@@ -63,7 +67,9 @@ public sealed partial class SesionMision
             PuedeUsarBotiquin = MotivoBloqueoBotiquin(unidad) == null,
             Botiquin = unidad.Botiquin?.Nombre,
             BotiquinUsado = unidad.BotiquinUsado,
+            BotiquinContaminado = unidad.Botiquin?.Contaminada == true,
             CuracionBotiquin = unidad.CuracionBotiquin,
+            RolCombate = unidad.EsAliada ? CatalogoRolesCombate.Obtener(unidad.Rol) : null,
             Arma = unidad.Arma?.Nombre,
             Danio = personaje.Ataque,
             DanioActual = personaje.Atacar().Valor,
@@ -114,20 +120,20 @@ public sealed partial class SesionMision
         }
 
         var comando = new MoverComando(unidad.Personaje, new Posicion(destino.Columna, destino.Fila));
-        ResultadoMovimiento movimiento = EjecutarMovimiento(comando, bitacora.Add);
+        EstadoCambioComando antes = CapturarCambioComando(unidad);
+        ResultadoMovimiento movimiento = EjecutarMovimiento(comando, bitacora.Add, comandosJugador);
         if (movimiento.Realizado)
         {
-            unidad.Movio = true;
-            ataquesDeshacibles.Clear();
+            RegistrarAccion(TipoComandoMision.Mover, unidad, unidad, antes);
         }
 
         return movimiento;
     }
 
-    private ResultadoMovimiento EjecutarMovimiento(MoverComando comando, Action<string> registrar)
+    private ResultadoMovimiento EjecutarMovimiento(MoverComando comando, Action<string> registrar, GestorComandos? gestor = null)
     {
         CasillaMision origen = ObtenerCasilla(comando.Personaje.Posicion);
-        if (!comandos.Ejecutar(comando))
+        if (!(gestor ?? comandos).Ejecutar(comando))
         {
             return new ResultadoMovimiento(false, comando.Descripcion);
         }
@@ -145,7 +151,7 @@ public sealed partial class SesionMision
     internal void Cerrar()
     {
         activa = false;
-        ataquesDeshacibles.Clear();
+        CerrarHistorialAcciones();
     }
 
     private IReadOnlyList<CasillaMision> ObtenerDestinos(UnidadMision unidad)
@@ -225,19 +231,20 @@ public sealed partial class SesionMision
     private static int ObtenerEscudo(Personaje personaje) =>
         personaje.Defensas.Eslabones.OfType<Escudo>().Sum(escudo => escudo.Puntos);
 
-    private static UnidadMision CrearAliada(FichaTripulante tripulante, CasillaMision casilla,
+    private static UnidadMision CrearAliada(FichaTripulante tripulante, RolCombate rol, CasillaMision casilla,
         ILookup<int, IItem> equipoPorAliado, Random? azar)
     {
         IEnumerable<IItem> equipo = equipoPorAliado[tripulante.Identificador];
         Arma arma = equipo.OfType<Arma>().Single();
         ArmaduraEquipada armadura = equipo.OfType<ArmaduraEquipada>().Single();
         Pocion? botiquin = equipo.OfType<Pocion>().SingleOrDefault();
-        int ataque = arma.Danio + (TieneHabilidad(tripulante, CatalogoHabilidades.Punteria)
+        OpcionRolCombate bonos = CatalogoRolesCombate.Obtener(rol);
+        int ataque = arma.DanioEfectivo + bonos.Danio + (TieneHabilidad(tripulante, CatalogoHabilidades.Punteria)
             ? CatalogoHabilidades.BonoDanio : 0);
-        int movimiento = 2 + (TieneHabilidad(tripulante, CatalogoHabilidades.Agilidad)
-            ? CatalogoHabilidades.BonoMovimiento : 0);
-        int curacion = botiquin == null ? 0 : botiquin.Curacion
-            + (TieneHabilidad(tripulante, CatalogoHabilidades.PrimerosAuxilios) ? CatalogoHabilidades.BonoCuracion : 0);
+        int movimiento = Math.Max(1, 2 + bonos.Movimiento + (TieneHabilidad(tripulante, CatalogoHabilidades.Agilidad)
+            ? CatalogoHabilidades.BonoMovimiento : 0));
+        int curacion = botiquin is { Contaminada: false } ? botiquin.Curacion + bonos.Curacion
+            + (TieneHabilidad(tripulante, CatalogoHabilidades.PrimerosAuxilios) ? CatalogoHabilidades.BonoCuracion : 0) : 0;
         CadenaDefensas defensas = CrearDefensas(esquiva: 10, bloqueo: 15, armadura: armadura.Defensa,
             escudo: 10, vida: 70, azar: azar);
         var personaje = new Personaje(tripulante.Nombre, ataque, movimiento, defensas,
@@ -248,6 +255,7 @@ public sealed partial class SesionMision
             Armadura = armadura,
             Botiquin = botiquin,
             CuracionBotiquin = curacion,
+            Rol = rol,
             Habilidades = Array.AsReadOnly(tripulante.Habilidades.ToArray())
         };
     }
@@ -279,12 +287,15 @@ public sealed partial class SesionMision
     private sealed record UnidadMision(int Identificador, Personaje Personaje, Enemigo? IA = null)
     {
         public bool EsAliada => IA == null;
-        public IReadOnlyList<int> EscudosMaximos { get; } = ObtenerPuntosEscudos(Personaje);
+        public ConfiguracionDefensas? ConfiguracionDefensas { get; set; }
+        public IReadOnlyList<int> EscudosMaximos => Personaje.Defensas.Eslabones.OfType<Escudo>()
+            .Select(escudo => escudo.PuntosIniciales).ToArray();
         public int EscudoMaximo => EscudosMaximos.Sum();
         public Arma? Arma { get; init; }
         public ArmaduraEquipada? Armadura { get; init; }
         public Pocion? Botiquin { get; init; }
         public int CuracionBotiquin { get; init; }
+        public RolCombate Rol { get; init; }
         public IReadOnlyList<string> Habilidades { get; init; } = Array.Empty<string>();
         public bool BotiquinUsado => RondaUsoBotiquin.HasValue;
         public int? RondaUsoBotiquin { get; set; }
@@ -303,7 +314,9 @@ public sealed record FichaUnidadMision(int Identificador, string Nombre, bool Es
     public bool PuedeUsarBotiquin { get; init; }
     public string? Botiquin { get; init; }
     public bool BotiquinUsado { get; init; }
+    public bool BotiquinContaminado { get; init; }
     public int CuracionBotiquin { get; init; }
+    public OpcionRolCombate? RolCombate { get; init; }
     public string? Arma { get; init; }
     public int Danio { get; init; }
     public int DanioActual { get; init; }

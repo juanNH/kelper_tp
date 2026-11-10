@@ -59,7 +59,23 @@ internal sealed class ContextoJuego : ApplicationContext
         inicio.NuevaPartidaSolicitada += (_, _) => MostrarNuevaPartida();
         inicio.ContinuarPartidaSolicitada += (_, _) => MostrarPartidasPendientes();
         inicio.TutorialSolicitado += (_, _) => MostrarTutorial(0);
+        inicio.ProgresoSolicitado += async (_, _) => await EjecutarAsync(inicio, "No se pudo consultar el progreso.",
+            async () => MostrarProgreso(await repositorio.ObtenerProgresoAsync()));
         Mostrar(inicio);
+    }
+
+    private void MostrarProgreso(ProgresoJugador perfil)
+    {
+        var progreso = new FormProgreso(perfil);
+        progreso.InicioSolicitado += (_, _) => MostrarInicio();
+        Mostrar(progreso);
+    }
+
+    private void MostrarResumenFinal(PreparacionPartida partida, ResumenPartidaGuardada guardado, ProgresoJugador perfil)
+    {
+        var resumen = new FormResumenPartida(partida.ObtenerResumenFinal(guardado.Id, guardado.Nombre, perfil), partida.Bitacora);
+        resumen.InicioSolicitado += (_, _) => MostrarInicio();
+        Mostrar(resumen);
     }
 
     private void MostrarTutorial(int paso)
@@ -280,6 +296,13 @@ internal sealed class ContextoJuego : ApplicationContext
                 }
 
                 ultimoGuardado = new PartidaGuardada(resumen, datos);
+                if (resumen.Estado is EstadoPartidaGuardada.Victoria or EstadoPartidaGuardada.Derrota)
+                {
+                    ProgresoJugador perfil = resumen.Progreso ?? await repositorio.ObtenerProgresoAsync();
+                    MostrarResumenFinal(partida, resumen, perfil);
+                    return;
+                }
+
                 alGuardar?.Invoke();
                 return;
             }
@@ -305,7 +328,7 @@ internal sealed class ContextoJuego : ApplicationContext
             alFallar?.Invoke();
             string detalle = error is InvalidDataException or JsonException
                 ? "El guardado es inválido o incompatible."
-                : "Revisá la conexión a SQL Server y la tabla de partidas.";
+                : "Revisá la conexión a SQL Server y los scripts de la carpeta database.";
             MessageBox.Show(pantalla, $"{aviso} {detalle}", "Partidas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         finally

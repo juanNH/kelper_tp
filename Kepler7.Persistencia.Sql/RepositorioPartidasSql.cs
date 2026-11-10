@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Kepler7.Persistencia.Sql;
 
-public sealed class RepositorioPartidasSql : IPartidaRepositorio
+public sealed partial class RepositorioPartidasSql : IPartidaRepositorio
 {
     private const int LongitudNombre = 120;
 
@@ -39,13 +39,16 @@ public sealed class RepositorioPartidasSql : IPartidaRepositorio
         AgregarEstado(comando, estado);
 
         await conexion.OpenAsync(cancelacion).ConfigureAwait(false);
-        await using var lector = await comando.ExecuteReaderAsync(CommandBehavior.SingleRow, cancelacion).ConfigureAwait(false);
-        if (!await lector.ReadAsync(cancelacion).ConfigureAwait(false))
-        {
-            throw new InvalidOperationException("SQL Server no devolvió la partida creada.");
-        }
+        await using var transaccion = (SqlTransaction)await conexion.BeginTransactionAsync(cancelacion).ConfigureAwait(false);
+        await BloquearProgresoAsync(transaccion, "Exclusive", cancelacion).ConfigureAwait(false);
+        comando.Transaction = transaccion;
 
-        return LeerResumen(lector);
+        ResumenPartidaGuardada resumen = await LeerResumenAsync(comando, cancelacion).ConfigureAwait(false)
+            ?? throw new InvalidOperationException("SQL Server no devolvió la partida creada.");
+        await GuardarProgresoAsync(transaccion, resumen.Id, estado, cancelacion).ConfigureAwait(false);
+        resumen = await CompletarProgresoFinalAsync(transaccion, resumen, cancelacion).ConfigureAwait(false);
+        await transaccion.CommitAsync(cancelacion).ConfigureAwait(false);
+        return resumen;
     }
 
     public async Task<IReadOnlyList<ResumenPartidaGuardada>> ListarPendientesAsync(CancellationToken cancelacion = default)
@@ -120,21 +123,65 @@ public sealed class RepositorioPartidasSql : IPartidaRepositorio
         await using var comando = new SqlCommand(sql, conexion);
         comando.Parameters.Add("@Id", SqlDbType.BigInt).Value = id;
         comando.Parameters.Add("@RevisionEsperada", SqlDbType.BigInt).Value = revisionEsperada;
-        AgregarEstado(comando, estado);
+        string json = AgregarEstado(comando, estado);
         AgregarEstadosPendientes(comando);
 
         await conexion.OpenAsync(cancelacion).ConfigureAwait(false);
+        await using var transaccion = (SqlTransaction)await conexion.BeginTransactionAsync(cancelacion).ConfigureAwait(false);
+        await BloquearProgresoAsync(transaccion, "Exclusive", cancelacion).ConfigureAwait(false);
+        comando.Transaction = transaccion;
+
+        ResumenPartidaGuardada? resumen = await LeerResumenAsync(comando, cancelacion).ConfigureAwait(false);
+        if (resumen != null)
+        {
+            await GuardarProgresoAsync(transaccion, id, estado, cancelacion).ConfigureAwait(false);
+        }
+        else
+        {
+            resumen = await BuscarReintentoAsync(transaccion, id, revisionEsperada, json, cancelacion).ConfigureAwait(false);
+        }
+
+        if (resumen != null)
+        {
+            resumen = await CompletarProgresoFinalAsync(transaccion, resumen, cancelacion).ConfigureAwait(false);
+        }
+
+        await transaccion.CommitAsync(cancelacion).ConfigureAwait(false);
+        return resumen;
+    }
+
+    private static async Task<ResumenPartidaGuardada?> LeerResumenAsync(SqlCommand comando, CancellationToken cancelacion)
+    {
         await using var lector = await comando.ExecuteReaderAsync(CommandBehavior.SingleRow, cancelacion).ConfigureAwait(false);
         return await lector.ReadAsync(cancelacion).ConfigureAwait(false) ? LeerResumen(lector) : null;
     }
 
-    private static void AgregarEstado(SqlCommand comando, EstadoGuardadoPartida estado)
+    private static async Task<ResumenPartidaGuardada?> BuscarReintentoAsync(SqlTransaction transaccion, long id,
+        long revisionEsperada, string json, CancellationToken cancelacion)
+    {
+        const string sql = """
+            SELECT Id, Nombre, Etapa, Estado, VersionFormato, ActualizadaUtc, Revision
+            FROM dbo.Partidas
+            WHERE Id = @Id AND Revision - 1 = @RevisionEsperada
+                AND DATALENGTH(Datos) = DATALENGTH(@Datos)
+                AND CONVERT(varbinary(max), Datos) = CONVERT(varbinary(max), @Datos);
+            """;
+
+        await using var comando = new SqlCommand(sql, transaccion.Connection, transaccion);
+        comando.Parameters.Add("@Id", SqlDbType.BigInt).Value = id;
+        comando.Parameters.Add("@RevisionEsperada", SqlDbType.BigInt).Value = revisionEsperada;
+        comando.Parameters.Add("@Datos", SqlDbType.NVarChar, -1).Value = json;
+        return await LeerResumenAsync(comando, cancelacion).ConfigureAwait(false);
+    }
+
+    private static string AgregarEstado(SqlCommand comando, EstadoGuardadoPartida estado)
     {
         string json = GuardadoPartida.Serializar(estado);
         comando.Parameters.Add("@Etapa", SqlDbType.TinyInt).Value = (byte)estado.Etapa;
         comando.Parameters.Add("@Estado", SqlDbType.TinyInt).Value = (byte)ObtenerEstado(estado);
         comando.Parameters.Add("@VersionFormato", SqlDbType.Int).Value = estado.Version;
         comando.Parameters.Add("@Datos", SqlDbType.NVarChar, -1).Value = json;
+        return json;
     }
 
     private static void AgregarEstadosPendientes(SqlCommand comando)

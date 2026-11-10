@@ -4,7 +4,7 @@ using Kepler7.Core.Patrones.State;
 namespace Kepler7.Core.Patrones.TemplateMethod;
 
 // Turno especializado para comandantes: evalúa la situación táctica, coordina ataques u órdenes de ensamblado en el hangar.
-public sealed class TurnoComandante : TurnoUnidad
+public sealed class TurnoComandante : TurnoTripulante
 {
     private readonly Hangar? hangar;
 
@@ -16,11 +16,16 @@ public sealed class TurnoComandante : TurnoUnidad
 
     protected override string Iniciar(Personaje? objetivo)
     {
-        return $"{Unidad.Nombre} (Comandante) revisa la consola de comando orbital. Estado: {Unidad.Estado.Nombre}, Posición: {Unidad.Posicion}.";
+        return $"{Unidad.Nombre} (Comandante) revisa la consola de comando orbital. Vida {Unidad.Vida.Puntos}/{Unidad.Vida.PuntosMaximos} PV y estado {EstadoActual}.";
     }
 
     protected override (IComando? Comando, string Detalle) Decidir(Personaje? objetivo)
     {
+        if (UsaAccionesDelJugador)
+        {
+            return DecidirCierreManual("El comandante reúne las órdenes del jugador y coordina el cierre de la ronda.");
+        }
+
         if (!Unidad.Vida.EstaVivo)
         {
             return (null, $"{Unidad.Nombre} ha caído y la cadena de mando se interrumpe.");

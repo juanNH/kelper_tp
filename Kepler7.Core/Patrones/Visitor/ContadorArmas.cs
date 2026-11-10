@@ -15,13 +15,13 @@ public sealed class ContadorArmas : IVisitor
     public void Visitar(Arma arma)
     {
         Cantidad++;
-        DanioTotal += arma.Danio;
+        DanioTotal += arma.DanioEfectivo;
         if (arma.Envenenada)
         {
             Envenenadas++;
         }
 
-        detalle.Add($"{arma.Nombre}: daño {arma.Danio}{(arma.Envenenada ? ", envenenada" : "")}");
+        detalle.Add($"{arma.Nombre}: daño {arma.DanioEfectivo}{(arma.Envenenada ? ", envenenada" : "")}");
     }
 
     public void Visitar(Pocion pocion)

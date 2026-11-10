@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="Electron" type="device" version="32.6.10">
+  <diagram id="kepler-flyweight" name="Flyweight">
+    <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1480" pageHeight="950" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="BibliotecaTripulantes" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="60" y="60" width="560" height="143" as="geometry" />
+        </mxCell>
+        <mxCell id="BibliotecaTripulantes-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;BibliotecaTripulantes&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="BibliotecaTripulantes">
+          <mxGeometry x="1" y="1" width="558" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="BibliotecaTripulantes-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="BibliotecaTripulantes">
+          <mxGeometry x="0" y="43" width="560" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BibliotecaTripulantes-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;u&gt;+ GenerarDemostracion(): (&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Tripulantes: IReadOnlyList&amp;lt;Tripulante&amp;gt;,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;InstanciasConFlyweight: Integer,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;InstanciasSinFlyweight: Integer)&lt;/u&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="BibliotecaTripulantes">
+          <mxGeometry x="14" y="43" width="532" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="RegistroTripulantes" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="820" y="60" width="600" height="222" as="geometry" />
+        </mxCell>
+        <mxCell id="RegistroTripulantes-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;RegistroTripulantes&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="RegistroTripulantes">
+          <mxGeometry x="1" y="1" width="598" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="RegistroTripulantes-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="RegistroTripulantes">
+          <mxGeometry x="0" y="43" width="600" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RegistroTripulantes-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;u&gt;- nombres: String[] {readOnly}&lt;/u&gt;&lt;br&gt;&lt;u&gt;- rangos: String[] {readOnly}&lt;/u&gt;&lt;br&gt;+ Tripulantes: IReadOnlyList&amp;lt;Tripulante&amp;gt;&lt;br&gt;+ CantidadTripulantes: Integer {readOnly}&lt;br&gt;+ EspeciesEnMemoria: Integer {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="RegistroTripulantes">
+          <mxGeometry x="14" y="43" width="572" height="121" as="geometry" />
+        </mxCell>
+        <mxCell id="RegistroTripulantes-separador-1" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="RegistroTripulantes">
+          <mxGeometry x="0" y="164" width="600" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RegistroTripulantes-miembros-1" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Generar(cantidad: Integer)&lt;br&gt;~ Generar(cantidad: Integer, azar: Random)&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="RegistroTripulantes">
+          <mxGeometry x="14" y="164" width="572" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="FabricaEspecies" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="60" y="360" width="560" height="159" as="geometry" />
+        </mxCell>
+        <mxCell id="FabricaEspecies-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;FabricaEspecies&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="FabricaEspecies">
+          <mxGeometry x="1" y="1" width="558" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="FabricaEspecies-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="FabricaEspecies">
+          <mxGeometry x="0" y="43" width="560" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FabricaEspecies-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;u&gt;- especies: Dictionary&amp;lt;String, IEspecie&amp;gt; {readOnly}&lt;/u&gt;&lt;br&gt;&lt;u&gt;+ CantidadInstancias: Integer {readOnly}&lt;/u&gt;&lt;br&gt;&lt;u&gt;~ NombresEspecies: IEnumerable&amp;lt;String&amp;gt; {readOnly}&lt;/u&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="FabricaEspecies">
+          <mxGeometry x="14" y="43" width="532" height="79" as="geometry" />
+        </mxCell>
+        <mxCell id="FabricaEspecies-separador-1" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="FabricaEspecies">
+          <mxGeometry x="0" y="122" width="560" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FabricaEspecies-miembros-1" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;&lt;u&gt;+ ObtenerEspecie(nombre: String): IEspecie&lt;/u&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="FabricaEspecies">
+          <mxGeometry x="14" y="122" width="532" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="Tripulante" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="820" y="360" width="600" height="243" as="geometry" />
+        </mxCell>
+        <mxCell id="Tripulante-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;Tripulante&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="Tripulante">
+          <mxGeometry x="1" y="1" width="598" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="Tripulante-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="Tripulante">
+          <mxGeometry x="0" y="43" width="600" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Tripulante-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Identificador: Integer {readOnly}&lt;br&gt;+ Nombre: String&lt;br&gt;+ Rango: String&lt;br&gt;+ Especie: IEspecie {readOnly}&lt;br&gt;+ Habilidades: List&amp;lt;String&amp;gt; {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="Tripulante">
+          <mxGeometry x="14" y="43" width="572" height="121" as="geometry" />
+        </mxCell>
+        <mxCell id="Tripulante-separador-1" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="Tripulante">
+          <mxGeometry x="0" y="164" width="600" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Tripulante-miembros-1" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Tripulante(identificador: Integer, nombre: String,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;rango: String, especie: IEspecie)&lt;br&gt;+ Clonar(): Tripulante&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="Tripulante">
+          <mxGeometry x="14" y="164" width="572" height="79" as="geometry" />
+        </mxCell>
+        <mxCell id="Especie" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="60" y="690" width="560" height="201" as="geometry" />
+        </mxCell>
+        <mxCell id="Especie-nombre" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;~ Especie&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="Especie">
+          <mxGeometry x="1" y="1" width="558" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="Especie-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="Especie">
+          <mxGeometry x="0" y="43" width="560" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Especie-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;br&gt;+ Color: Color {readOnly}&lt;br&gt;+ PlanetaOrigen: String {readOnly}&lt;br&gt;+ Dieta: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="Especie">
+          <mxGeometry x="14" y="43" width="532" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Especie-separador-1" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="Especie">
+          <mxGeometry x="0" y="143" width="560" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Especie-miembros-1" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Especie(nombre: String, color: Color,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;planetaOrigen: String, dieta: String)&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="Especie">
+          <mxGeometry x="14" y="143" width="532" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="IEspecie" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" vertex="1" parent="1">
+          <mxGeometry x="820" y="690" width="600" height="152" as="geometry" />
+        </mxCell>
+        <mxCell id="IEspecie-nombre" value="&lt;div style=&quot;font-size:12px;color:#53627A;&quot;&gt;«interface»&lt;/div&gt;&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;IEspecie&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" vertex="1" parent="IEspecie">
+          <mxGeometry x="1" y="1" width="598" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="IEspecie-separador-0" value="" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" vertex="1" parent="IEspecie">
+          <mxGeometry x="0" y="52" width="600" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IEspecie-miembros-0" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;br&gt;+ Color: Color {readOnly}&lt;br&gt;+ PlanetaOrigen: String {readOnly}&lt;br&gt;+ Dieta: String {readOnly}&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" vertex="1" parent="IEspecie">
+          <mxGeometry x="14" y="52" width="572" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="biblioteca-registro" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=1;exitY=0.4825174825174825;exitDx=0;exitDy=0;entryX=0;entryY=0.3108108108108108;entryDx=0;entryDy=0;" edge="1" parent="1" source="BibliotecaTripulantes" target="RegistroTripulantes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="registro-fabrica" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0;exitY=0.7612612612612613;exitDx=0;exitDy=0;entryX=1;entryY=0.44025157232704404;entryDx=0;entryDy=0;" edge="1" parent="1" source="RegistroTripulantes" target="FabricaEspecies">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="730" y="229" />
+              <mxPoint x="730" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="registro-tripulantes" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;startArrow=diamond;startFill=0;startSize=14;endArrow=open;endFill=0;endSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RegistroTripulantes" target="Tripulante">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="registro-tripulantes-origen" value="0..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="registro-tripulantes">
+          <mxGeometry x="-0.98" relative="1" as="geometry">
+            <mxPoint x="23" y="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="registro-tripulantes-destino" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="registro-tripulantes">
+          <mxGeometry x="0.98" relative="1" as="geometry">
+            <mxPoint x="23" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fabrica-especie" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="FabricaEspecies" target="Especie">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fabrica-interfaz" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=1;exitY=0.7672955974842768;exitDx=0;exitDy=0;entryX=0.225;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="FabricaEspecies" target="IEspecie">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="690" y="482" />
+              <mxPoint x="690" y="644" />
+              <mxPoint x="955" y="644" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tripulante-especie-compartida" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;endSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Tripulante" target="IEspecie">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tripulante-especie-compartida-origen" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="tripulante-especie-compartida">
+          <mxGeometry x="-0.98" relative="1" as="geometry">
+            <mxPoint x="23" y="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tripulante-especie-compartida-destino" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" vertex="1" connectable="0" parent="tripulante-especie-compartida">
+          <mxGeometry x="0.98" relative="1" as="geometry">
+            <mxPoint x="13" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="especie-realiza-interfaz" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=16;dashed=1;dashPattern=5 4;exitX=1;exitY=0.3482587064676617;exitDx=0;exitDy=0;entryX=0;entryY=0.4605263157894737;entryDx=0;entryDy=0;" edge="1" parent="1" source="Especie" target="IEspecie">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -39,6 +39,7 @@ public sealed partial class SesionMision
         dron.CambiarEstrategia(CrearEstrategia(tipo));
         string mensaje = $"{dron.Nombre} cambió de estrategia {anterior} a {NombreEstrategia(dron)}.";
         bitacora.Add($"Ronda {Ronda}. {mensaje}");
+        progreso.RegistrarLogro(PatronKepler.Strategy);
         return new(true, mensaje);
     }
 

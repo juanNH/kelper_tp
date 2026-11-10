@@ -5,7 +5,7 @@ using Kepler7.Core.Patrones.Strategy;
 namespace Kepler7.Core.Patrones.TemplateMethod;
 
 // Turno especializado para soldados: prepara armamento, decide ofensiva agresiva y actúa directamente.
-public sealed class TurnoSoldado : TurnoUnidad
+public sealed class TurnoSoldado : TurnoTripulante
 {
     private readonly IEstrategiaIA estrategia;
 
@@ -17,11 +17,16 @@ public sealed class TurnoSoldado : TurnoUnidad
 
     protected override string Iniciar(Personaje? objetivo)
     {
-        return $"{Unidad.Nombre} (Soldado) prepara su armamento y verifica la línea de fuego. Estado: {Unidad.Estado.Nombre}, Vida: {Unidad.Vida.Puntos}/{Unidad.Vida.PuntosMaximos}.";
+        return $"{Unidad.Nombre} (Soldado) revisa su armamento y la línea de fuego. Vida {Unidad.Vida.Puntos}/{Unidad.Vida.PuntosMaximos} PV y estado {EstadoActual}.";
     }
 
     protected override (IComando? Comando, string Detalle) Decidir(Personaje? objetivo)
     {
+        if (UsaAccionesDelJugador)
+        {
+            return DecidirCierreManual("El jugador cede el turno y el soldado revisa su posición de combate.");
+        }
+
         if (!Unidad.Vida.EstaVivo)
         {
             return (null, $"{Unidad.Nombre} está fuera de combate.");

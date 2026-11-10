@@ -42,6 +42,50 @@ public sealed partial class PreparacionPartida
         return new ResumenInventario(valor.Total, armas.Cantidad);
     }
 
+    public bool InventarioEnvenenado => inventarioPreparacion.Items.OfType<Arma>().Any(arma => arma.Envenenada);
+
+    public ResultadoVisitanteInventario AplicarVisitante(TipoVisitanteInventario tipo)
+    {
+        bool yaEnvenenado = InventarioEnvenenado;
+        IVisitor visitante = tipo switch
+        {
+            TipoVisitanteInventario.CalculadorPrecio => inventarioPreparacion.Aplicar(new CalculadorPrecio()),
+            TipoVisitanteInventario.ContadorArmas => inventarioPreparacion.Aplicar(new ContadorArmas()),
+            TipoVisitanteInventario.AplicadorVeneno => EnvenenarInventario(),
+            _ => throw new ArgumentOutOfRangeException(nameof(tipo))
+        };
+
+        if (tipo == TipoVisitanteInventario.AplicadorVeneno && !yaEnvenenado)
+        {
+            equipoConfirmado = null;
+        }
+
+        progreso.RegistrarLogro(PatronKepler.Visitor);
+        return new ResultadoVisitanteInventario(visitante.Resumen, visitante.Detalle);
+    }
+
+    public void LimpiarInventario()
+    {
+        if (!InventarioEnvenenado)
+        {
+            return;
+        }
+
+        foreach (Arma arma in inventarioPreparacion.Items.OfType<Arma>())
+        {
+            arma.QuitarVeneno();
+        }
+
+        foreach (Pocion botiquin in inventarioPreparacion.Items.OfType<Pocion>())
+        {
+            botiquin.Descontaminar();
+        }
+
+        equipoConfirmado = null;
+    }
+
+    private AplicadorVeneno EnvenenarInventario() => inventarioPreparacion.Aplicar(new AplicadorVeneno());
+
     public void AsignarEquipo(int identificadorTripulante, TipoEquipo tipo, int? idEquipo)
     {
         BuscarIntegrante(identificadorTripulante);
@@ -86,12 +130,19 @@ public sealed partial class PreparacionPartida
         equipoConfirmado = new Dictionary<(int Tripulante, TipoEquipo Tipo), int>(asignacionesEquipo);
         int cantidadBotiquines = asignacionesEquipo.Keys.Count(lugar => lugar.Tipo == TipoEquipo.Botiquin);
         string botiquines = cantidadBotiquines == 1 ? "1 botiquín" : $"{cantidadBotiquines} botiquines";
-        bitacora.Add($"Equipamiento confirmado para el despliegue. {CantidadIntegrantes} armas, "
-            + $"{CantidadIntegrantes} armaduras y {botiquines}.");
+        string mensaje = $"Equipamiento confirmado para el despliegue. {CantidadIntegrantes} armas, "
+            + $"{CantidadIntegrantes} armaduras y {botiquines}.";
+        if (InventarioEnvenenado)
+        {
+            mensaje += " Las armas están envenenadas y los botiquines, contaminados.";
+        }
+
+        bitacora.Add(mensaje);
     }
 
     private void LiberarEquipo(int identificador)
     {
+        rolesCombate.Remove(identificador);
         foreach (TipoEquipo tipo in Enum.GetValues<TipoEquipo>())
         {
             asignacionesEquipo.Remove((identificador, tipo));
@@ -122,9 +173,9 @@ public sealed partial class PreparacionPartida
 
     private static string DescribirEfecto(IItem item) => item switch
     {
-        Arma arma => $"Daño {arma.Danio}",
+        Arma arma => arma.Envenenada ? $"Daño {arma.DanioEfectivo} · envenenada" : $"Daño {arma.Danio}",
         Armadura armadura => $"Defensa {armadura.Defensa}{(armadura.ResisteVeneno ? " · sellada" : "")}",
-        Pocion pocion => $"Cura {pocion.Curacion} PV",
+        Pocion pocion => pocion.Contaminada ? "Contaminado · no cura" : $"Cura {pocion.Curacion} PV",
         _ => throw new InvalidOperationException("El tipo de ítem no es equipable.")
     };
 }
@@ -139,3 +190,12 @@ public enum TipoEquipo
 public sealed record FichaEquipo(int Id, string Nombre, TipoEquipo Tipo, int Precio, string Efecto, int? PortadorId);
 
 public sealed record ResumenInventario(int ValorTotal, int CantidadArmas);
+
+public enum TipoVisitanteInventario
+{
+    CalculadorPrecio,
+    ContadorArmas,
+    AplicadorVeneno
+}
+
+public sealed record ResultadoVisitanteInventario(string Resumen, IReadOnlyList<string> Detalle);

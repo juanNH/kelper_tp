@@ -1,32 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Compile Update="Form1.cs">
+    <Compile Update="FormCadenaDefensas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Secciones\Integrante1\BridgePanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="FormComunicacionesBoveda.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Secciones\Integrante1\BuilderPanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="FormConBitacora.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Secciones\Integrante1\FacadePanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="FormConfirmarDespliegue.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Secciones\Integrante1\Integrante1Panel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="FormContinuarPartida.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Secciones\Integrante1\MisionPanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="FormEquipamiento.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Secciones\Integrante1\PlantillasUnidadPanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="FormEscuadron.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Secciones\Integrante1\PreparacionUnidadesPanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="FormHangar.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Secciones\Integrante1\PrototypePanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="FormHistorialBoveda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormHistorialComandos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormInicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormMision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormMisionEstacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormNuevaPartida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormPasoPreparacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormProgreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormResumenPartida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormTutorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormVisitantesInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PanelTableroMision.cs">
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
 </Project>
