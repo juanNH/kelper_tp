@@ -47,6 +47,6 @@ public sealed class Berserk : IEstadoPersonaje
         }
 
         personaje.CambiarEstado(new Aturdido(1));
-        return $"La furia de {personaje.Nombre} se agota y queda aturdido.";
+        return $"La furia de {personaje.Nombre} se agota y queda aturdido durante 1 turno.";
     }
 }

@@ -20,10 +20,15 @@ public sealed class IADefensiva : IEstrategiaIA
                 comandoCurar = new CurarComando(enemigo.Personaje, 15);
             }
 
-            return new DecisionIA("Vida baja se repliega y se cubre", comandoCurar);
+            string motivo = contexto.DestinosMovimiento == null
+                ? "Vida baja se repliega y se cubre"
+                : "Prioriza recuperarse porque tiene menos de 30 PV";
+            return new DecisionIA(motivo, comandoCurar);
         }
 
-        return new DecisionIA("Mantiene posición y se bloquea");
+        return new DecisionIA(contexto.DestinosMovimiento == null
+            ? "Mantiene posición y se bloquea"
+            : "Mantiene su posición y reserva la reparación");
     }
 }
 

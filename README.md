@@ -1,6 +1,6 @@
 # Kepler-7
 
-Plantilla base de Windows Forms en .NET 8 para desarrollar el juego. Al ejecutar la solución se abre un formulario vacío.
+Juego táctico de escritorio en Windows Forms y .NET 8. La versión actual incluye la portada, los seis pasos de preparación y el tablero de la misión con selección, movimiento y ataque.
 
 ## Ejecutar
 
@@ -10,7 +10,17 @@ En Windows, abrí `Kepler7.sln` en Visual Studio y ejecutá `Kepler7.Game`. Tamb
 dotnet run --project .\Kepler7.Game
 ```
 
+## Base de datos
+
+Si todavía no tenés `Kepler7.Persistencia.Sql/App.config`, copiá `Kepler7.Persistencia.Sql/App.config.example` con ese nombre antes de ejecutar el juego. La plantilla usa la instancia predeterminada local de SQL Server (`Server=.`), la base `Kepler7` y autenticación de Windows. Si usás una instancia con nombre, ajustá `Server` en tu `App.config` local, que está excluido de Git.
+
+Para preparar la base en otra instalación, conectate con autenticación de Windows en SQL Server Management Studio y ejecutá los scripts en orden.
+
+1. `database/001_CrearBase.sql` crea la base `Kepler7`.
+2. `database/002_Partidas.sql` crea la tabla `dbo.Partidas` y su índice.
+
 ## Organización
 
 - `Kepler7.Core` es la biblioteca para la lógica del juego y los patrones.
-- `Kepler7.Game` contiene la aplicación WinForms y el formulario inicial `Form1`.
+- `Kepler7.Game` contiene los formularios a pantalla completa. **Tutorial** guía la preparación y la misión, con pruebas de turnos, estrategias, deshacer ataques y estados. **Nueva partida** inicia la preparación y **Continuar partida** retoma un guardado pendiente. **Desplegar** lleva al tablero de **Recuperar la antena**.
+- `Kepler7.Persistencia.Sql` guarda las partidas en SQL Server.

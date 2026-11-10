@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kepler7.Core", "Kepler7.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kepler7.Game", "Kepler7.Game\Kepler7.Game.csproj", "{F230F5BA-D08D-4A78-B008-E36DCD06243D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kepler7.Persistencia.Sql", "Kepler7.Persistencia.Sql\Kepler7.Persistencia.Sql.csproj", "{973A10CD-5447-4AD5-9EAD-2452141A49C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{F230F5BA-D08D-4A78-B008-E36DCD06243D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F230F5BA-D08D-4A78-B008-E36DCD06243D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F230F5BA-D08D-4A78-B008-E36DCD06243D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{973A10CD-5447-4AD5-9EAD-2452141A49C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{973A10CD-5447-4AD5-9EAD-2452141A49C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{973A10CD-5447-4AD5-9EAD-2452141A49C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{973A10CD-5447-4AD5-9EAD-2452141A49C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

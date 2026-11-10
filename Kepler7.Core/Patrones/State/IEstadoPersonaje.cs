@@ -10,6 +10,7 @@ public interface IEstadoPersonaje
     Color Color { get; }
     bool PuedeAtacar { get; }
     bool PuedeMover { get; }
+    int TurnosRestantes => 0;
 
     ResultadoAccion Atacar(Personaje personaje);
     ResultadoAccion Mover(Personaje personaje);

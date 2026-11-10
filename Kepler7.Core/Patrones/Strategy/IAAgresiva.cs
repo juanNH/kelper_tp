@@ -12,7 +12,7 @@ public sealed class IAAgresiva : IEstrategiaIA
         ArgumentNullException.ThrowIfNull(enemigo);
         ArgumentNullException.ThrowIfNull(contexto);
 
-        if (contexto.Distancia > 3)
+        if (contexto.Distancia > contexto.AlcanceAtaque)
         {
             IComando? comando = null;
             if (enemigo.Personaje != null && contexto.Objetivo != null)
@@ -27,7 +27,10 @@ public sealed class IAAgresiva : IEstrategiaIA
                 comando = new MoverComando(enemigo.Personaje, nuevaPos);
             }
 
-            return new DecisionIA("Avanza para atacar", comando);
+            return new DecisionIA("Avanza para atacar", comando)
+            {
+                PersigueObjetivo = contexto.DestinosMovimiento != null && comando != null
+            };
         }
 
         IComando? comandoAtaque = null;

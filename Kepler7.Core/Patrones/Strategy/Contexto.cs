@@ -1,3 +1,4 @@
+using Kepler7.Core.Patrones.Command;
 using Kepler7.Core.Patrones.State;
 
 namespace Kepler7.Core.Patrones.Strategy;
@@ -34,5 +35,7 @@ public sealed class Contexto
     public int VidaJugador { get; set; }
     public int Distancia { get; set; }
     public Personaje? Objetivo { get; set; }
+    public IReadOnlyList<Posicion>? DestinosMovimiento { get; init; }
+    public int AlcanceAtaque { get; init; } = 3;
 }
 

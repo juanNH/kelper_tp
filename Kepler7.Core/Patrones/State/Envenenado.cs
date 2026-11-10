@@ -44,10 +44,19 @@ public sealed class Envenenado : IEstadoPersonaje
     public string FinalizarTurno(Personaje personaje)
     {
         // El veneno actúa desde adentro: no pasa por Esquiva, Bloqueo, Armadura ni Escudo.
-        personaje.Vida.Manejar(new Danio(DanioPorTurno, esquivable: false));
+        Vida vida = personaje.Vida;
+        int vidaAnterior = vida.Puntos;
+        vida.Reducir(DanioPorTurno);
         TurnosRestantes--;
 
-        string efecto = $"El veneno quita {DanioPorTurno} de vida a {personaje.Nombre}.";
+        string efecto = $"El veneno quita {vidaAnterior - vida.Puntos} PV a {personaje.Nombre}. "
+            + $"Queda con {vida.Puntos}/{vida.PuntosMaximos} PV.";
+        if (!vida.EstaVivo)
+        {
+            personaje.CambiarEstado(new Normal());
+            return $"{efecto} {personaje.Nombre} quedó fuera de combate por el veneno.";
+        }
+
         if (TurnosRestantes > 0)
         {
             return TurnosRestantes == 1

@@ -21,12 +21,17 @@ public sealed class GestorComandos
         bool exito = comando.Ejecutar();
         if (exito)
         {
-            pilaDeshacer.Push(comando);
-            pilaRehacer.Clear();
+            RegistrarParaDeshacer(comando);
             historial.Add(comando.Descripcion);
         }
 
         return exito;
+    }
+
+    internal void RegistrarParaDeshacer(IComando comando)
+    {
+        pilaDeshacer.Push(comando);
+        pilaRehacer.Clear();
     }
 
     public bool Deshacer()

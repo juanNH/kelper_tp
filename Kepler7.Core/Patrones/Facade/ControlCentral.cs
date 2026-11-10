@@ -44,19 +44,23 @@ public sealed class ControlCentral
 
     public Hangar Hangar => navegacion.Hangar;
 
+    internal IReadOnlyCollection<string> IdsArchivosBoveda => seguridad.IdsArchivosBoveda;
+
     public IBoveda AbrirBoveda(Usuario usuario) => seguridad.AbrirBoveda(usuario);
 
     public IReadOnlyList<IntentoDenegado> ObtenerIntentosDenegados() => seguridad.ObtenerIntentosDenegados();
 
-    public IReadOnlyList<string> IniciarTurno()
+    public IReadOnlyList<string> IniciarTurno() => IniciarTurno(TipoRecetaNave.Exploradora);
+
+    internal IReadOnlyList<string> IniciarTurno(TipoRecetaNave receta, bool enviarConfirmacion = true)
     {
         var secuencia = new List<string>
         {
             "- Iniciando el turno operativo en Kepler-7 -",
             energia.Encender(),
             soporte.Activar(),
-            navegacion.Calibrar(),
-            comunicaciones.Abrir(),
+            navegacion.Calibrar(receta),
+            comunicaciones.Abrir(enviarConfirmacion),
             seguridad.Rondar(),
             defensa.VerificarDefensas(),
             "- Estación Kepler-7 completamente operativa -"
@@ -65,7 +69,9 @@ public sealed class ControlCentral
         return secuencia.AsReadOnly();
     }
 
-    public IReadOnlyList<string> EntrarEnEmergencia()
+    public IReadOnlyList<string> EntrarEnEmergencia() => EntrarEnEmergencia(enviarAviso: true);
+
+    internal IReadOnlyList<string> EntrarEnEmergencia(bool enviarAviso)
     {
         var secuencia = new List<string>
         {
@@ -74,7 +80,7 @@ public sealed class ControlCentral
             energia.ActivarModoEmergencia(),
             soporte.Minimizar(),
             seguridad.BloquearAccesos(),
-            comunicaciones.EmitirEmergencia(),
+            comunicaciones.EmitirEmergencia(enviarAviso),
             navegacion.ModoEmergencia(),
             "- ESTADO DE EMERGENCIA ACTIVADO -"
         };
@@ -82,14 +88,16 @@ public sealed class ControlCentral
         return secuencia.AsReadOnly();
     }
 
-    public IReadOnlyList<string> ApagarEstacion()
+    public IReadOnlyList<string> ApagarEstacion() => ApagarEstacion(enviarDespedida: true);
+
+    internal IReadOnlyList<string> ApagarEstacion(bool enviarDespedida)
     {
         var secuencia = new List<string>
         {
             "- Terminando el turno operativo: apagando la estación -",
             defensa.ApagarDefensas(),
             navegacion.AterrizarNaves(),
-            comunicaciones.Cerrar(),
+            comunicaciones.Cerrar(enviarDespedida),
             seguridad.AsegurarBoveda(),
             soporte.Minimizar(),
             energia.Apagar(),
@@ -97,6 +105,22 @@ public sealed class ControlCentral
         };
 
         return secuencia.AsReadOnly();
+    }
+
+    internal void RestaurarOperacion(TipoRecetaNave receta, bool emergenciaActivada, bool apagada)
+    {
+        // Reconstruye los cambios en memoria sobre una fachada recién creada.
+        navegacion.Calibrar(receta);
+        if (emergenciaActivada)
+        {
+            defensa.ArmarEscudos();
+            navegacion.ModoEmergencia();
+        }
+
+        if (apagada)
+        {
+            navegacion.AterrizarNaves();
+        }
     }
 }
 

@@ -16,10 +16,10 @@ internal sealed class Navegacion
 
     public Hangar Hangar { get; }
 
-    public string Calibrar()
+    public string Calibrar(TipoRecetaNave receta)
     {
-        Desplegar(TipoRecetaNave.Exploradora);
-        return "Navegación: calibrada y orientada en órbita con nave Exploradora desplegada.";
+        Desplegar(receta);
+        return $"Navegación: calibrada y orientada en órbita con nave {receta} desplegada.";
     }
 
     public string ModoEmergencia()

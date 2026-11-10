@@ -20,6 +20,13 @@ public abstract class TurnoUnidad
     public GestorComandos GestorComandos { get; }
     public IReadOnlyList<EtapaTurno> Historial => historial.AsReadOnly();
 
+    protected string EstadoActual => Unidad.Estado.TurnosRestantes switch
+    {
+        0 => Unidad.Estado.Nombre,
+        1 => $"{Unidad.Estado.Nombre} (1 turno restante)",
+        int turnos => $"{Unidad.Estado.Nombre} ({turnos} turnos restantes)"
+    };
+
     // Método plantilla (Template Method): NO VIRTUAL.
     // Garantiza que todas las subclases ejecuten las etapas estrictamente en el mismo orden.
     public ResumenTurno EjecutarTurno(Personaje? objetivo = null)

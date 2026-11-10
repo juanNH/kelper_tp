@@ -10,10 +10,12 @@ public abstract class Mensaje
         this.cifrado = cifrado;
     }
 
-    public string Enviar(string texto)
+    public string Enviar(string texto) => cifrado.Cifrar(Previsualizar(texto));
+
+    public string Previsualizar(string texto)
     {
         ArgumentNullException.ThrowIfNull(texto);
-        return cifrado.Cifrar(Formatear(texto));
+        return Formatear(texto);
     }
 
     protected abstract string Formatear(string texto);

@@ -18,13 +18,15 @@ public sealed class Escudo : ManejadorDanioBase
         Puntos += puntos;
     }
 
+    internal void RestaurarPuntos(int puntos) => Puntos = puntos;
+
     protected override (int Absorbido, string Detalle) Absorber(Danio danio)
     {
         int absorbido = Math.Min(Puntos, danio.Restante);
         if (absorbido > 0)
         {
             int puntosAnteriores = Puntos;
-            danio.RegistrarRestauracion(() => Puntos = puntosAnteriores);
+            danio.RegistrarRestauracion(() => RestaurarPuntos(puntosAnteriores));
             Puntos -= absorbido;
         }
 

@@ -1,4 +1,5 @@
 using Kepler7.Core.Patrones.Command;
+using Kepler7.Core.Patrones.State;
 
 namespace Kepler7.Core.Patrones.Strategy;
 
@@ -29,6 +30,11 @@ public sealed class IAAleatoria : IEstrategiaIA
         ArgumentNullException.ThrowIfNull(enemigo);
         ArgumentNullException.ThrowIfNull(contexto);
 
+        if (contexto.DestinosMovimiento is { } destinos && enemigo.Personaje is { } unidad && contexto.Objetivo is { } objetivo)
+        {
+            return DecidirEnTablero(unidad, objetivo, contexto, destinos);
+        }
+
         string accionElegida = acciones[azar.Next(acciones.Length)];
         IComando? comando = null;
 
@@ -38,6 +44,38 @@ public sealed class IAAleatoria : IEstrategiaIA
         }
 
         return new DecisionIA(accionElegida, comando);
+    }
+
+    private DecisionIA DecidirEnTablero(Personaje unidad, Personaje objetivo, Contexto contexto,
+        IReadOnlyList<Posicion> destinos)
+    {
+        var opciones = new List<AccionTablero>(3) { AccionTablero.MantenerPosicion };
+        if (contexto.Distancia <= contexto.AlcanceAtaque && unidad.Estado.PuedeAtacar)
+        {
+            opciones.Add(AccionTablero.Atacar);
+        }
+
+        if (destinos.Count > 0)
+        {
+            opciones.Add(AccionTablero.Mover);
+        }
+
+        return opciones[ElegirIndice(opciones.Count)] switch
+        {
+            AccionTablero.Atacar => new DecisionIA("Elige atacar al azar", new AtacarComando(unidad, objetivo)),
+            AccionTablero.Mover => new DecisionIA("Elige cambiar de posición al azar",
+                new MoverComando(unidad, destinos[ElegirIndice(destinos.Count)])),
+            _ => new DecisionIA("Elige mantener su posición")
+        };
+    }
+
+    private int ElegirIndice(int cantidad) => (int)((long)azar.Next(100) * cantidad / 100);
+
+    private enum AccionTablero
+    {
+        MantenerPosicion,
+        Atacar,
+        Mover
     }
 }
 
