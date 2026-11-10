@@ -6,10 +6,12 @@ namespace Kepler7.Game;
 internal sealed class FormInicio : Form
 {
     private static readonly Color Rosa = Color.FromArgb(163, 82, 160);
+    private readonly Button botonMusica;
 
     public event EventHandler? NuevaPartidaSolicitada;
     public event EventHandler? ContinuarPartidaSolicitada;
     public event EventHandler? TutorialSolicitado;
+    public event EventHandler? CambioMusicaSolicitado;
 
     public FormInicio()
     {
@@ -35,11 +37,12 @@ internal sealed class FormInicio : Form
         var cabecera = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
-            ColumnCount = 2,
+            ColumnCount = 3,
             RowCount = 2,
             Margin = Padding.Empty
         };
         cabecera.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        cabecera.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 228F));
         cabecera.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 92F));
         cabecera.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
         cabecera.RowStyles.Add(new RowStyle(SizeType.Absolute, 2F));
@@ -52,15 +55,21 @@ internal sealed class FormInicio : Form
             Margin = Padding.Empty
         }, 0, 0);
 
+        botonMusica = CrearBoton("Activar música (F8)", Superficie, Secundario);
+        botonMusica.Name = "btnMusica";
+        botonMusica.Margin = new Padding(0, 0, 8, 10);
+        botonMusica.Click += (_, _) => CambioMusicaSolicitado?.Invoke(this, EventArgs.Empty);
+        cabecera.Controls.Add(botonMusica, 1, 0);
+
         Button salir = CrearBoton("Salir", Superficie, Secundario);
         salir.Name = "btnSalir";
         salir.Margin = new Padding(0, 0, 0, 10);
         salir.Click += (_, _) => Close();
-        cabecera.Controls.Add(salir, 1, 0);
+        cabecera.Controls.Add(salir, 2, 0);
 
         var separador = new System.Windows.Forms.Panel { Dock = DockStyle.Fill, BackColor = Borde, Margin = Padding.Empty };
         cabecera.Controls.Add(separador, 0, 1);
-        cabecera.SetColumnSpan(separador, 2);
+        cabecera.SetColumnSpan(separador, 3);
         estructura.Controls.Add(cabecera, 0, 0);
 
         var contenido = new TableLayoutPanel
@@ -144,6 +153,9 @@ internal sealed class FormInicio : Form
         menu.Controls.Add(CrearEtiqueta("Valentin Regal\r\nJuan Herrera\r\nEzequiel Crivelle", 12F, FontStyle.Regular, Texto, 0), 0, 6);
         contenido.Controls.Add(new ArtePortada { Dock = DockStyle.Fill, Margin = Padding.Empty }, 1, 0);
     }
+
+    public void MostrarEstadoMusica(bool activa) =>
+        botonMusica.Text = activa ? "Silenciar música (F8)" : "Activar música (F8)";
 
     private static Label CrearEtiqueta(string texto, float tamano, FontStyle estilo, Color color, int espacioInferior) => new()
     {

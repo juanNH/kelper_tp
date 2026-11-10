@@ -4,6 +4,7 @@
     <ProjectReference Include="..\Kepler7.Core\Kepler7.Core.csproj" />
     <ProjectReference Include="..\Kepler7.Persistencia.Sql\Kepler7.Persistencia.Sql.csproj" />
     <EmbeddedResource Include="Recursos\Portada.png" LogicalName="Kepler7.Game.Portada.png" />
+    <None Update="Recursos\Cubik.wav" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <PropertyGroup>

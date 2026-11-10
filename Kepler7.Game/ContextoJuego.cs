@@ -1,4 +1,6 @@
 using System.Data.Common;
+using System.Diagnostics;
+using System.Media;
 using System.Text.Json;
 using Kepler7.Core.Aplicacion;
 
@@ -7,15 +9,44 @@ namespace Kepler7.Game;
 internal sealed class ContextoJuego : ApplicationContext
 {
     private readonly IPartidaRepositorio repositorio;
+    private readonly SoundPlayer musica = new(Path.Combine(AppContext.BaseDirectory, "Recursos", "Cubik.wav"));
     private PreparacionPartida? preparacion;
     private PartidaGuardada? ultimoGuardado;
     private bool ocupado;
+    private bool musicaActiva;
 
     public ContextoJuego(IPartidaRepositorio repositorio)
     {
         ArgumentNullException.ThrowIfNull(repositorio);
         this.repositorio = repositorio;
+        AlternarMusica();
         MostrarInicio();
+    }
+
+    private void AlternarMusica()
+    {
+        if (musicaActiva)
+        {
+            musica.Stop();
+            musicaActiva = false;
+        }
+        else
+        {
+            try
+            {
+                musica.PlayLooping();
+                musicaActiva = true;
+            }
+            catch (Exception error) when (error is IOException or InvalidOperationException or UnauthorizedAccessException)
+            {
+                Trace.TraceWarning($"No se pudo reproducir Cubik.wav: {error.Message}");
+            }
+        }
+
+        if (MainForm is FormInicio inicio)
+        {
+            inicio.MostrarEstadoMusica(musicaActiva);
+        }
     }
 
     private void MostrarInicio()
@@ -23,6 +54,8 @@ internal sealed class ContextoJuego : ApplicationContext
         preparacion = null;
         ultimoGuardado = null;
         var inicio = new FormInicio();
+        inicio.MostrarEstadoMusica(musicaActiva);
+        inicio.CambioMusicaSolicitado += (_, _) => AlternarMusica();
         inicio.NuevaPartidaSolicitada += (_, _) => MostrarNuevaPartida();
         inicio.ContinuarPartidaSolicitada += (_, _) => MostrarPartidasPendientes();
         inicio.TutorialSolicitado += (_, _) => MostrarTutorial(0);
@@ -297,6 +330,15 @@ internal sealed class ContextoJuego : ApplicationContext
         siguiente.FormBorderStyle = FormBorderStyle.None;
         siguiente.StartPosition = FormStartPosition.Manual;
         siguiente.Bounds = pantalla.Bounds;
+        siguiente.KeyPreview = true;
+        siguiente.KeyUp += (_, e) =>
+        {
+            if (e.KeyData == Keys.F8)
+            {
+                AlternarMusica();
+                e.Handled = true;
+            }
+        };
         siguiente.FormClosing += (_, e) =>
         {
             if (ocupado && e.CloseReason == CloseReason.UserClosing && ReferenceEquals(MainForm, siguiente))
@@ -307,5 +349,21 @@ internal sealed class ContextoJuego : ApplicationContext
         MainForm = siguiente;
         siguiente.Show();
         anterior?.Close();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (musicaActiva)
+            {
+                musica.Stop();
+                musicaActiva = false;
+            }
+
+            musica.Dispose();
+        }
+
+        base.Dispose(disposing);
     }
 }
