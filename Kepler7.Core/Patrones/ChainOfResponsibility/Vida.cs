@@ -21,7 +21,6 @@ public sealed class Vida : ManejadorDanioBase
         Puntos = Math.Min(PuntosMaximos, Puntos + puntos);
     }
 
-<<<<<<< HEAD
     public void Reducir(int puntos)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(puntos);
@@ -30,11 +29,14 @@ public sealed class Vida : ManejadorDanioBase
 
     public void Restar(int puntos) => Reducir(puntos);
 
-=======
->>>>>>> 1218c73ba3b96c856fdc9995491b34268a797e63
     protected override (int Absorbido, string Detalle) Absorber(Danio danio)
     {
-        Puntos = Math.Max(0, Puntos - danio.Restante);
+        if (Puntos > 0 && danio.Restante > 0)
+        {
+            int puntosAnteriores = Puntos;
+            danio.RegistrarRestauracion(() => Puntos = puntosAnteriores);
+            Reducir(danio.Restante);
+        }
 
         string detalle = EstaVivo ? $"vida {Puntos}/{PuntosMaximos}" : "personaje derrotado";
         return (danio.Restante, detalle);

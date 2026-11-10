@@ -4,6 +4,7 @@ namespace Kepler7.Core.Patrones.ChainOfResponsibility;
 public sealed class Danio
 {
     private readonly List<PasoDanio> recorrido = new();
+    private readonly List<Action> restauraciones = new();
 
     public Danio(int cantidad, bool esquivable = true)
     {
@@ -25,6 +26,18 @@ public sealed class Danio
 
         recorrido.Add(new PasoDanio(eslabon, Restante, absorbido, detalle));
         Restante -= absorbido;
+    }
+
+    internal void RegistrarRestauracion(Action restaurar) => restauraciones.Add(restaurar);
+
+    internal void RestaurarDefensas()
+    {
+        for (int indice = restauraciones.Count - 1; indice >= 0; indice--)
+        {
+            restauraciones[indice]();
+        }
+
+        restauraciones.Clear();
     }
 }
 

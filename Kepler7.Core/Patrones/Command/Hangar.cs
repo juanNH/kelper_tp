@@ -9,6 +9,7 @@ public sealed class Hangar
 
     public IReadOnlyList<Nave> Naves => naves.AsReadOnly();
     public int CantidadNaves => naves.Count;
+    public Nave? NaveEnPatrulla { get; private set; }
 
     public void Agregar(Nave nave)
     {
@@ -19,7 +20,13 @@ public sealed class Hangar
     public bool Quitar(Nave nave)
     {
         ArgumentNullException.ThrowIfNull(nave);
-        return naves.Remove(nave);
+        bool retirada = naves.Remove(nave);
+        if (retirada && ReferenceEquals(NaveEnPatrulla, nave) && !naves.Contains(nave))
+        {
+            NaveEnPatrulla = null;
+        }
+
+        return retirada;
     }
 
     public bool Contiene(Nave nave)
@@ -28,6 +35,22 @@ public sealed class Hangar
         return naves.Contains(nave);
     }
 
-    public void Limpiar() => naves.Clear();
+    internal void Desplegar(Nave nave)
+    {
+        if (!Contiene(nave))
+        {
+            throw new InvalidOperationException("La nave debe estar registrada en el hangar.");
+        }
+
+        NaveEnPatrulla = nave;
+    }
+
+    internal void AterrizarNaves() => NaveEnPatrulla = null;
+
+    public void Limpiar()
+    {
+        naves.Clear();
+        AterrizarNaves();
+    }
 }
 

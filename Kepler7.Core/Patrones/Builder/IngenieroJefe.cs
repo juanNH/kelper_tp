@@ -1,9 +1,34 @@
 using Kepler7.Core.Patrones.Builder.Componentes;
+using Kepler7.Core.Patrones.Command;
 
 namespace Kepler7.Core.Patrones.Builder;
 
 public sealed class IngenieroJefe
 {
+    public Nave ConstruirNave(TipoRecetaNave receta, NaveBuilder builder)
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+
+        switch (receta)
+        {
+            case TipoRecetaNave.Exploradora:
+                RecetaExploradora(builder);
+                break;
+            case TipoRecetaNave.Combate:
+                RecetaCombate(builder);
+                break;
+            case TipoRecetaNave.Carga:
+                RecetaCarga(builder);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(receta), receta, "Tipo de receta no reconocido.");
+        }
+
+        Nave nave = builder.ConstruirNave();
+        nave.TipoReceta = receta;
+        return nave;
+    }
+
     public void RecetaExploradora(INaveBuilder builder)
     {
         builder.Reiniciar();

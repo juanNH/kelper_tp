@@ -1,3 +1,6 @@
+using Kepler7.Core.Patrones.Command;
+using Kepler7.Core.Patrones.Proxy;
+
 namespace Kepler7.Core.Patrones.Facade;
 
 // Fachada principal del sistema: expone operaciones de alto nivel ocultando la complejidad
@@ -12,7 +15,14 @@ public sealed class ControlCentral
     private readonly Defensa defensa;
 
     public ControlCentral()
-        : this(new Energia(), new SoporteVital(), new Navegacion(), new Comunicaciones(), new Seguridad(), new Defensa())
+        : this(new Hangar(), new RegistroIntentosDenegados(Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "Kepler7", "intentos-denegados.json")))
+    {
+    }
+
+    public ControlCentral(Hangar hangar, RegistroIntentosDenegados registro)
+        : this(new Energia(), new SoporteVital(), new Navegacion(hangar), new Comunicaciones(), new Seguridad(registro), new Defensa())
     {
     }
 
@@ -31,6 +41,12 @@ public sealed class ControlCentral
         this.seguridad = seguridad;
         this.defensa = defensa;
     }
+
+    public Hangar Hangar => navegacion.Hangar;
+
+    public IBoveda AbrirBoveda(Usuario usuario) => seguridad.AbrirBoveda(usuario);
+
+    public IReadOnlyList<IntentoDenegado> ObtenerIntentosDenegados() => seguridad.ObtenerIntentosDenegados();
 
     public IReadOnlyList<string> IniciarTurno()
     {

@@ -3,11 +3,7 @@ using Kepler7.Core.Patrones.ChainOfResponsibility;
 namespace Kepler7.Core.Patrones.State;
 
 // Contexto del patrón: guarda el estado actual y le delega cada acción.
-<<<<<<< HEAD
 public sealed partial class Personaje
-=======
-public sealed class Personaje
->>>>>>> 1218c73ba3b96c856fdc9995491b34268a797e63
 {
     public Personaje(string nombre, int ataque, int movimiento, CadenaDefensas defensas)
     {
@@ -15,13 +11,15 @@ public sealed class Personaje
         ArgumentOutOfRangeException.ThrowIfNegative(ataque);
         ArgumentOutOfRangeException.ThrowIfNegative(movimiento);
         ArgumentNullException.ThrowIfNull(defensas);
+        if (defensas.EslabonVida == null)
+        {
+            throw new ArgumentException("La cadena de defensas debe incluir un eslabón Vida.", nameof(defensas));
+        }
 
         Nombre = nombre;
         Ataque = ataque;
         Movimiento = movimiento;
         Defensas = defensas;
-        Vida = defensas.Eslabones.OfType<Vida>().FirstOrDefault()
-            ?? throw new ArgumentException("La cadena de defensas debe incluir un eslabón Vida.", nameof(defensas));
         Estado = new Normal();
     }
 
@@ -29,7 +27,8 @@ public sealed class Personaje
     public int Ataque { get; }
     public int Movimiento { get; }
     public CadenaDefensas Defensas { get; }
-    public Vida Vida { get; }
+    public Vida Vida => Defensas.EslabonVida
+        ?? throw new InvalidOperationException("La cadena de defensas debe incluir un eslabón Vida.");
     public IEstadoPersonaje Estado { get; private set; }
 
     public void CambiarEstado(IEstadoPersonaje nuevoEstado)
@@ -42,7 +41,12 @@ public sealed class Personaje
 
     public ResultadoAccion Mover() => Estado.Mover(this);
 
-    public Danio RecibirDanio(int cantidad) => Estado.RecibirDanio(this, cantidad);
+    public Danio RecibirDanio(int cantidad)
+    {
+        // Verifica que la cadena siga teniendo Vida antes de modificar las defensas.
+        _ = Vida;
+        return Estado.RecibirDanio(this, cantidad);
+    }
 
     public string FinalizarTurno() => Estado.FinalizarTurno(this);
 }

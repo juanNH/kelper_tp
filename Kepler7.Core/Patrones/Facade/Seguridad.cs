@@ -6,12 +6,22 @@ namespace Kepler7.Core.Patrones.Facade;
 internal sealed class Seguridad
 {
     private readonly BovedaDatos bovedaReal = new();
-    private readonly RegistroIntentosDenegados registro = new();
+    private readonly RegistroIntentosDenegados registro;
+
+    public Seguridad(RegistroIntentosDenegados registro)
+    {
+        ArgumentNullException.ThrowIfNull(registro);
+        this.registro = registro;
+    }
+
+    public IBoveda AbrirBoveda(Usuario usuario) => new ProxyBoveda(bovedaReal, usuario, registro);
+
+    public IReadOnlyList<IntentoDenegado> ObtenerIntentosDenegados() => registro.ObtenerIntentos();
 
     public string Rondar()
     {
         var oficial = new Usuario("Oficial Valen", RolUsuario.OficialSeguridad);
-        var proxy = new ProxyBoveda(bovedaReal, oficial, registro);
+        IBoveda proxy = AbrirBoveda(oficial);
         string archivo = proxy.LeerArchivo("codigos-defensa");
         return $"Seguridad: protocolos activados, códigos de defensa validados ({archivo}).";
     }
@@ -19,7 +29,7 @@ internal sealed class Seguridad
     public string BloquearAccesos()
     {
         var capitan = new Usuario("Capitán Miller", RolUsuario.Capitan);
-        var proxy = new ProxyBoveda(bovedaReal, capitan, registro);
+        IBoveda proxy = AbrirBoveda(capitan);
         string informe = proxy.LeerArchivo("informe-crisis");
         return $"Seguridad: accesos blindados, informe de crisis asegurado ({informe}).";
     }

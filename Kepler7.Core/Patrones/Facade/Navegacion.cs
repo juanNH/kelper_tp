@@ -1,4 +1,5 @@
 using Kepler7.Core.Patrones.Builder;
+using Kepler7.Core.Patrones.Command;
 
 namespace Kepler7.Core.Patrones.Facade;
 
@@ -6,27 +7,43 @@ namespace Kepler7.Core.Patrones.Facade;
 internal sealed class Navegacion
 {
     private readonly IngenieroJefe ingeniero = new();
-    private readonly NaveBuilder builder = new();
-    private Nave? navePatrulla;
+
+    public Navegacion(Hangar hangar)
+    {
+        ArgumentNullException.ThrowIfNull(hangar);
+        Hangar = hangar;
+    }
+
+    public Hangar Hangar { get; }
 
     public string Calibrar()
     {
-        ingeniero.RecetaExploradora(builder);
-        navePatrulla = builder.ConstruirNave();
+        Desplegar(TipoRecetaNave.Exploradora);
         return "Navegación: calibrada y orientada en órbita con nave Exploradora desplegada.";
     }
 
     public string ModoEmergencia()
     {
-        ingeniero.RecetaCombate(builder);
-        navePatrulla = builder.ConstruirNave();
+        Desplegar(TipoRecetaNave.Combate);
         return "Navegación: protocolo de intercepción activo con nave de Combate en patrulla.";
     }
 
     public string AterrizarNaves()
     {
-        navePatrulla = null;
+        Hangar.AterrizarNaves();
         return "Navegación: todas las naves han aterrizado y permanecen en hangar.";
+    }
+
+    private void Desplegar(TipoRecetaNave receta)
+    {
+        Nave? nave = Hangar.Naves.FirstOrDefault(nave => nave.TipoReceta == receta);
+        if (nave == null)
+        {
+            nave = ingeniero.ConstruirNave(receta, new NaveBuilder());
+            Hangar.Agregar(nave);
+        }
+
+        Hangar.Desplegar(nave);
     }
 }
 

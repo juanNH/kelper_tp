@@ -17,10 +17,13 @@ public sealed class IAAgresiva : IEstrategiaIA
             IComando? comando = null;
             if (enemigo.Personaje != null && contexto.Objetivo != null)
             {
-                int alcance = enemigo.Personaje.Movimiento;
-                int dx = Math.Sign(contexto.Objetivo.Posicion.X - enemigo.Personaje.Posicion.X) * Math.Min(alcance, Math.Abs(contexto.Objetivo.Posicion.X - enemigo.Personaje.Posicion.X));
-                int dy = Math.Sign(contexto.Objetivo.Posicion.Y - enemigo.Personaje.Posicion.Y) * Math.Min(alcance - Math.Abs(dx), Math.Abs(contexto.Objetivo.Posicion.Y - enemigo.Personaje.Posicion.Y));
-                var nuevaPos = new Posicion(enemigo.Personaje.Posicion.X + dx, enemigo.Personaje.Posicion.Y + dy);
+                var movimiento = enemigo.Personaje.Mover();
+                if (!movimiento.Realizada || movimiento.Valor <= 0)
+                {
+                    return new DecisionIA(movimiento.Descripcion);
+                }
+
+                Posicion nuevaPos = enemigo.Personaje.Posicion.AvanzarHacia(contexto.Objetivo.Posicion, movimiento.Valor);
                 comando = new MoverComando(enemigo.Personaje, nuevaPos);
             }
 

@@ -1,4 +1,5 @@
 using Kepler7.Core.Patrones.Builder.Componentes;
+using Kepler7.Core.Patrones.Command;
 
 namespace Kepler7.Core.Patrones.Builder;
 
@@ -8,6 +9,7 @@ public sealed class Nave
     {
     }
 
+    public TipoRecetaNave? TipoReceta { get; internal set; }
     public Casco? Casco { get; internal set; }
     public Motor? Motor { get; internal set; }
     public Escudo? Escudo { get; internal set; }

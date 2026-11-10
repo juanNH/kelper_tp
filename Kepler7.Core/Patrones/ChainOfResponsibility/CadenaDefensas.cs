@@ -7,6 +7,8 @@ public sealed class CadenaDefensas
 
     public IReadOnlyList<IManejadorDanio> Eslabones => eslabones.AsReadOnly();
 
+    internal Vida? EslabonVida => eslabones.OfType<Vida>().FirstOrDefault();
+
     public static CadenaDefensas CrearPredeterminada(Random? azar = null)
     {
         var cadena = new CadenaDefensas();
@@ -29,6 +31,11 @@ public sealed class CadenaDefensas
         if (eslabones.Contains(eslabon))
         {
             throw new InvalidOperationException($"El eslabón {eslabon.Nombre} ya está en la cadena.");
+        }
+
+        if (eslabon is Vida && EslabonVida != null)
+        {
+            throw new InvalidOperationException("La cadena solo puede tener un eslabón Vida.");
         }
 
         eslabones.Insert(indice, eslabon);
@@ -69,7 +76,15 @@ public sealed class CadenaDefensas
         var danio = new Danio(cantidad, esquivable);
         if (eslabones.Count > 0)
         {
-            eslabones[0].Manejar(danio);
+            try
+            {
+                eslabones[0].Manejar(danio);
+            }
+            catch
+            {
+                danio.RestaurarDefensas();
+                throw;
+            }
         }
 
         return danio;

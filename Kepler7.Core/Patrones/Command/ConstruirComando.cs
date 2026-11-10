@@ -2,13 +2,6 @@ using Kepler7.Core.Patrones.Builder;
 
 namespace Kepler7.Core.Patrones.Command;
 
-public enum TipoRecetaNave
-{
-    Exploradora,
-    Combate,
-    Carga
-}
-
 // Ensambla una nave mediante IngenieroJefe y la almacena en el hangar. Al deshacer, la retira.
 public sealed class ConstruirComando : IComando
 {
@@ -57,32 +50,23 @@ public sealed class ConstruirComando : IComando
 
     public bool Ejecutar()
     {
+        if (fueEjecutado)
+        {
+            return false;
+        }
+
         if (naveConstruida == null)
         {
-            if (tipoReceta.HasValue)
+            if (tipoReceta is TipoRecetaNave receta)
             {
-                switch (tipoReceta.Value)
-                {
-                    case TipoRecetaNave.Exploradora:
-                        jefe.RecetaExploradora(builder);
-                        break;
-                    case TipoRecetaNave.Combate:
-                        jefe.RecetaCombate(builder);
-                        break;
-                    case TipoRecetaNave.Carga:
-                        jefe.RecetaCarga(builder);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(tipoReceta), tipoReceta, "Tipo de receta no reconocido.");
-                }
+                naveConstruida = jefe.ConstruirNave(receta, builder);
             }
-            else if (recetaPersonalizada != null)
+            else
             {
                 builder.Reiniciar();
-                recetaPersonalizada(builder);
+                recetaPersonalizada!(builder);
+                naveConstruida = builder.ConstruirNave();
             }
-
-            naveConstruida = builder.ConstruirNave();
         }
 
         hangar.Agregar(naveConstruida);

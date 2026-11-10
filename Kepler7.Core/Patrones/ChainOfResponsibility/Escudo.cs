@@ -21,7 +21,12 @@ public sealed class Escudo : ManejadorDanioBase
     protected override (int Absorbido, string Detalle) Absorber(Danio danio)
     {
         int absorbido = Math.Min(Puntos, danio.Restante);
-        Puntos -= absorbido;
+        if (absorbido > 0)
+        {
+            int puntosAnteriores = Puntos;
+            danio.RegistrarRestauracion(() => Puntos = puntosAnteriores);
+            Puntos -= absorbido;
+        }
 
         string detalle = Puntos > 0 ? $"quedan {Puntos} puntos de escudo" : "escudo agotado";
         return (absorbido, detalle);
