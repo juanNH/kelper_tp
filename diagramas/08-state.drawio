@@ -1,0 +1,202 @@
+<mxfile host="Electron">
+  <diagram id="kepler-state" name="State">
+    <mxGraphModel dx="1414" dy="841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2660" pageHeight="993" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="personaje" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" value="" vertex="1">
+          <mxGeometry height="419" width="625" x="40" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="personaje-nombre" parent="personaje" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;Personaje&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="623" x="1" y="1" as="geometry" />
+        </mxCell>
+        <mxCell id="personaje-separador-0" parent="personaje" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="625" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="personaje-miembros-0" parent="personaje" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;br&gt;+ Ataque: Integer {readOnly}&lt;br&gt;+ Movimiento: Integer {readOnly}&lt;br&gt;+ Defensas: CadenaDefensas {readOnly}&lt;br&gt;+ Vida: Vida {readOnly}&lt;br&gt;+ Estado: IEstadoPersonaje&lt;br&gt;+ Posicion: Posicion&lt;/div&gt;" vertex="1">
+          <mxGeometry height="167" width="597" x="14" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="personaje-separador-1" parent="personaje" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="625" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="personaje-miembros-1" parent="personaje" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Personaje(nombre: String, ataque: Integer, movimiento: Integer,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;defensas: CadenaDefensas)&lt;br&gt;+ Personaje(nombre: String, ataque: Integer, movimiento: Integer,&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;defensas: CadenaDefensas, posicion: Posicion)&lt;br&gt;+ CambiarEstado(nuevoEstado: IEstadoPersonaje)&lt;br&gt;+ Atacar(): ResultadoAccion&lt;br&gt;+ Mover(): ResultadoAccion&lt;br&gt;+ RecibirDanio(cantidad: Integer): Danio&lt;br&gt;+ FinalizarTurno(): String&lt;/div&gt;" vertex="1">
+          <mxGeometry height="209" width="597" x="14" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="estado" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" value="" vertex="1">
+          <mxGeometry height="281" width="598" x="1031" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="estado-nombre" parent="estado" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" value="&lt;div style=&quot;font-size:12px;color:#53627A;&quot;&gt;«interface»&lt;/div&gt;&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;IEstadoPersonaje&lt;/div&gt;" vertex="1">
+          <mxGeometry height="51" width="596" x="1" y="1" as="geometry" />
+        </mxCell>
+        <mxCell id="estado-separador-0" parent="estado" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="598" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="estado-miembros-0" parent="estado" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;br&gt;+ Color: Color {readOnly}&lt;br&gt;+ PuedeAtacar: Boolean {readOnly}&lt;br&gt;+ PuedeMover: Boolean {readOnly}&lt;br&gt;+ TurnosRestantes: Integer {readOnly}&lt;/div&gt;" vertex="1">
+          <mxGeometry height="125" width="570" x="14" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="estado-separador-1" parent="estado" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="598" y="177" as="geometry" />
+        </mxCell>
+        <mxCell id="estado-miembros-1" parent="estado" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Atacar(personaje: Personaje): ResultadoAccion&lt;br&gt;+ Mover(personaje: Personaje): ResultadoAccion&lt;br&gt;+ RecibirDanio(personaje: Personaje, cantidad: Integer): Danio&lt;br&gt;+ FinalizarTurno(personaje: Personaje): String&lt;/div&gt;" vertex="1">
+          <mxGeometry height="104" width="570" x="14" y="177" as="geometry" />
+        </mxCell>
+        <mxCell id="resultado" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" value="" vertex="1">
+          <mxGeometry height="167" width="706" x="1779" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="resultado-nombre" parent="resultado" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;ResultadoAccion&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="704" x="1" y="1" as="geometry" />
+        </mxCell>
+        <mxCell id="resultado-separador-0" parent="resultado" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="706" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="resultado-miembros-0" parent="resultado" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Realizada: Boolean {readOnly}&lt;br&gt;+ Valor: Integer {readOnly}&lt;br&gt;+ Descripcion: String {readOnly}&lt;/div&gt;" vertex="1">
+          <mxGeometry height="83" width="678" x="14" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="resultado-separador-1" parent="resultado" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="706" y="126" as="geometry" />
+        </mxCell>
+        <mxCell id="resultado-miembros-1" parent="resultado" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ ResultadoAccion(Realizada: Boolean, Valor: Integer, Descripcion: String)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="41" width="678" x="14" y="126" as="geometry" />
+        </mxCell>
+        <mxCell id="normal" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" value="" vertex="1">
+          <mxGeometry height="251" width="600" x="40" y="599" as="geometry" />
+        </mxCell>
+        <mxCell id="normal-nombre" parent="normal" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;Normal&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="598" x="1" y="1" as="geometry" />
+        </mxCell>
+        <mxCell id="normal-separador-0" parent="normal" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="600" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="normal-miembros-0" parent="normal" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;br&gt;+ Color: Color {readOnly}&lt;br&gt;+ PuedeAtacar: Boolean {readOnly}&lt;br&gt;+ PuedeMover: Boolean {readOnly}&lt;/div&gt;" vertex="1">
+          <mxGeometry height="104" width="572" x="14" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="normal-separador-1" parent="normal" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="600" y="147" as="geometry" />
+        </mxCell>
+        <mxCell id="normal-miembros-1" parent="normal" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Atacar(personaje: Personaje): ResultadoAccion&lt;br&gt;+ Mover(personaje: Personaje): ResultadoAccion&lt;br&gt;+ RecibirDanio(personaje: Personaje, cantidad: Integer): Danio&lt;br&gt;+ FinalizarTurno(personaje: Personaje): String&lt;/div&gt;" vertex="1">
+          <mxGeometry height="104" width="572" x="14" y="147" as="geometry" />
+        </mxCell>
+        <mxCell id="aturdido" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" value="" vertex="1">
+          <mxGeometry height="293" width="600" x="700" y="599" as="geometry" />
+        </mxCell>
+        <mxCell id="aturdido-nombre" parent="aturdido" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;Aturdido&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="598" x="1" y="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aturdido-separador-0" parent="aturdido" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="600" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="aturdido-miembros-0" parent="aturdido" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;br&gt;+ Color: Color {readOnly}&lt;br&gt;+ PuedeAtacar: Boolean {readOnly}&lt;br&gt;+ PuedeMover: Boolean {readOnly}&lt;br&gt;+ TurnosRestantes: Integer&lt;/div&gt;" vertex="1">
+          <mxGeometry height="125" width="572" x="14" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="aturdido-separador-1" parent="aturdido" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="600" y="168" as="geometry" />
+        </mxCell>
+        <mxCell id="aturdido-miembros-1" parent="aturdido" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Aturdido(turnos: Integer = 1)&lt;br&gt;+ Atacar(personaje: Personaje): ResultadoAccion&lt;br&gt;+ Mover(personaje: Personaje): ResultadoAccion&lt;br&gt;+ RecibirDanio(personaje: Personaje, cantidad: Integer): Danio&lt;br&gt;+ FinalizarTurno(personaje: Personaje): String&lt;/div&gt;" vertex="1">
+          <mxGeometry height="125" width="572" x="14" y="168" as="geometry" />
+        </mxCell>
+        <mxCell id="berserk" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" value="" vertex="1">
+          <mxGeometry height="293" width="600" x="1360" y="599" as="geometry" />
+        </mxCell>
+        <mxCell id="berserk-nombre" parent="berserk" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;Berserk&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="598" x="1" y="1" as="geometry" />
+        </mxCell>
+        <mxCell id="berserk-separador-0" parent="berserk" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="600" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="berserk-miembros-0" parent="berserk" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;br&gt;+ Color: Color {readOnly}&lt;br&gt;+ PuedeAtacar: Boolean {readOnly}&lt;br&gt;+ PuedeMover: Boolean {readOnly}&lt;br&gt;+ TurnosRestantes: Integer&lt;/div&gt;" vertex="1">
+          <mxGeometry height="125" width="572" x="14" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="berserk-separador-1" parent="berserk" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="600" y="168" as="geometry" />
+        </mxCell>
+        <mxCell id="berserk-miembros-1" parent="berserk" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Berserk(turnos: Integer = 2)&lt;br&gt;+ Atacar(personaje: Personaje): ResultadoAccion&lt;br&gt;+ Mover(personaje: Personaje): ResultadoAccion&lt;br&gt;+ RecibirDanio(personaje: Personaje, cantidad: Integer): Danio&lt;br&gt;+ FinalizarTurno(personaje: Personaje): String&lt;/div&gt;" vertex="1">
+          <mxGeometry height="125" width="572" x="14" y="168" as="geometry" />
+        </mxCell>
+        <mxCell id="envenenado" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#46566C;strokeWidth=1.25;" value="" vertex="1">
+          <mxGeometry height="314" width="600" x="2020" y="599" as="geometry" />
+        </mxCell>
+        <mxCell id="envenenado-nombre" parent="envenenado" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F2F5F8;strokeColor=none;fontFamily=Arial;spacing=0;" value="&lt;div style=&quot;font-size:19px;font-weight:bold;color:#19273B;&quot;&gt;Envenenado&lt;/div&gt;" vertex="1">
+          <mxGeometry height="42" width="598" x="1" y="1" as="geometry" />
+        </mxCell>
+        <mxCell id="envenenado-separador-0" parent="envenenado" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="600" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="envenenado-miembros-0" parent="envenenado" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Nombre: String {readOnly}&lt;br&gt;+ Color: Color {readOnly}&lt;br&gt;+ PuedeAtacar: Boolean {readOnly}&lt;br&gt;+ PuedeMover: Boolean {readOnly}&lt;br&gt;+ TurnosRestantes: Integer&lt;br&gt;+ DanioPorTurno: Integer {readOnly}&lt;/div&gt;" vertex="1">
+          <mxGeometry height="146" width="572" x="14" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="envenenado-separador-1" parent="envenenado" style="shape=line;direction=east;strokeColor=#A2AEBB;strokeWidth=1;" value="" vertex="1">
+          <mxGeometry height="1" width="600" y="189" as="geometry" />
+        </mxCell>
+        <mxCell id="envenenado-miembros-1" parent="envenenado" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;spacing=0;fontFamily=Consolas;" value="&lt;div style=&quot;font-family:Consolas,monospace;font-size:14px;line-height:1.5;color:#243247;&quot;&gt;+ Envenenado(turnos: Integer = 3, danioPorTurno: Integer = 5)&lt;br&gt;+ Atacar(personaje: Personaje): ResultadoAccion&lt;br&gt;+ Mover(personaje: Personaje): ResultadoAccion&lt;br&gt;+ RecibirDanio(personaje: Personaje, cantidad: Integer): Danio&lt;br&gt;+ FinalizarTurno(personaje: Personaje): String&lt;/div&gt;" vertex="1">
+          <mxGeometry height="125" width="572" x="14" y="189" as="geometry" />
+        </mxCell>
+        <mxCell id="personaje-estado" edge="1" parent="1" source="personaje" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=none;endFill=0;endSize=10;exitX=1;exitY=0.2625;exitDx=0;exitDy=0;entryX=0;entryY=0.3915;entryDx=0;entryDy=0;startArrow=diamond;startFill=1;" target="estado" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="personaje-estado-origen" connectable="0" parent="personaje-estado" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" value="0..1" vertex="1">
+          <mxGeometry relative="1" x="-0.9781" as="geometry">
+            <mxPoint x="22" y="-11" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="personaje-estado-destino" connectable="0" parent="personaje-estado" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Arial;fontSize=13;fontColor=#243247;labelBackgroundColor=#FFFFFF;" value="1" vertex="1">
+          <mxGeometry relative="1" x="0.9781" as="geometry">
+            <mxPoint x="-12" y="-11" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="estado-personaje" edge="1" parent="1" source="estado" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0;exitY=0.8185;exitDx=0;exitDy=0;entryX=1;entryY=0.5489;entryDx=0;entryDy=0;" target="personaje" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="estado-resultado" edge="1" parent="1" source="estado" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=1;exitY=0.2972;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="resultado" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="personaje-resultado" edge="1" parent="1" source="personaje" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="resultado" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="352.5" y="22" />
+              <mxPoint x="2132" y="22" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="realiza-normal" edge="1" parent="1" source="normal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;dashed=1;dashPattern=5 4;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.2;entryY=1;entryDx=0;entryDy=0;" target="estado" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="340" y="539" />
+              <mxPoint x="1150.6" y="539" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="realiza-aturdido" edge="1" parent="1" source="aturdido" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;dashed=1;dashPattern=5 4;exitX=0.9503;exitY=0;exitDx=0;exitDy=0;entryX=0.4;entryY=1;entryDx=0;entryDy=0;" target="estado" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="realiza-berserk" edge="1" parent="1" source="berserk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;dashed=1;dashPattern=5 4;exitX=0.0497;exitY=0;exitDx=0;exitDy=0;entryX=0.6;entryY=1;entryDx=0;entryDy=0;" target="estado" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="realiza-envenenado" edge="1" parent="1" source="envenenado" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=block;endFill=0;endSize=10;dashed=1;dashPattern=5 4;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.8;entryY=1;entryDx=0;entryDy=0;" target="estado" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2320" y="539" />
+              <mxPoint x="1509.4" y="539" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="personaje-normal" edge="1" parent="1" source="personaje" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0.24;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="normal" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aturdido-normal" edge="1" parent="1" source="aturdido" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0;exitY=0.5119;exitDx=0;exitDy=0;entryX=1;entryY=0.5976;entryDx=0;entryDy=0;" target="normal" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="berserk-aturdido" edge="1" parent="1" source="berserk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0;exitY=0.5119;exitDx=0;exitDy=0;entryX=1;entryY=0.5119;entryDx=0;entryDy=0;" target="aturdido" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="envenenado-normal" edge="1" parent="1" source="envenenado" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46566C;strokeWidth=1.3;endArrow=open;endFill=0;dashed=1;dashPattern=5 4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="normal" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2320" y="953" />
+              <mxPoint x="340" y="953" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
