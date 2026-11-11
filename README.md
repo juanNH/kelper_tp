@@ -10,6 +10,10 @@ En Windows, abrí `Kepler7.sln` en Visual Studio y ejecutá `Kepler7.Game`. Tamb
 dotnet run --project .\Kepler7.Game
 ```
 
+## Instalador para Windows
+
+El instalador y las instrucciones para volver a generarlo con Inno Setup están en [output/](output/README.md). Durante la instalación se elige la instancia de SQL Server y, si hace falta, se puede preparar la base `Kepler7`.
+
 ## Base de datos
 
 Si todavía no tenés `Kepler7.Persistencia.Sql/App.config`, copiá `Kepler7.Persistencia.Sql/App.config.example` con ese nombre antes de ejecutar el juego. La plantilla usa la instancia predeterminada local de SQL Server (`Server=.`), la base `Kepler7` y autenticación de Windows. Si usás una instancia con nombre, ajustá `Server` en tu `App.config` local, que está excluido de Git.
